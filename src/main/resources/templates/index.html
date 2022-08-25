@@ -68,7 +68,7 @@ https://templatemo.com/tm-556-catalog-z
     <div class="container-fluid tm-container-content tm-mt-60">
         <div class="row mb-4">
             <h2 class="col-6 tm-text-primary">
-                Sport Items 
+                Sport Items <span sec:authentication="principal.phoneNo">Fullname</span>
             </h2>
             <div class="col-6 d-flex justify-content-end align-items-center">
                 <form action="" class="tm-text-primary">
@@ -79,10 +79,11 @@ https://templatemo.com/tm-556-catalog-z
         <div class="row tm-mb-90 tm-gallery">
         	<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                 <figure class="effect-ming tm-video-item">
-                    <img src="img/footballWithPerson.jpg" alt="Image" class="img-fluid">
-                    <figcaption class="d-flex align-items-center justify-content-center">
+                    <img src="img/football.jpeg" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center" >
                         <h2>Soccer</h2>
-                        <a href="photo-detail.html">View more</a>
+                        <a th:href="@{/photo-detail}">View more</a>
+                        
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
@@ -92,7 +93,7 @@ https://templatemo.com/tm-556-catalog-z
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                 <figure class="effect-ming tm-video-item">
-                    <img src="img/img-04.jpg" alt="Image" class="img-fluid">
+                    <img src="img/rugby.jpeg" alt="Image" class="img-fluid">
                     <figcaption class="d-flex align-items-center justify-content-center">
                         <h2>Rugby</h2>
                         <a href="photo-detail.html">View more</a>
@@ -105,68 +106,68 @@ https://templatemo.com/tm-556-catalog-z
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                 <figure class="effect-ming tm-video-item">
-                    <img src="img/img-05.jpg" alt="Image" class="img-fluid">
+                    <img src="img/volleyball.jpeg" alt="Image" class="img-fluid">
                     <figcaption class="d-flex align-items-center justify-content-center">
-                        <h2>Morning</h2>
+                        <h2>Volleyball</h2>
                         <a href="photo-detail.html">View more</a>
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">12 Oct 2020</span>
-                    <span>12,460 views</span>
+                    <span class="tm-text-gray"> </span>
+                    <span>20 Available </span>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                 <figure class="effect-ming tm-video-item">
-                    <img src="img/img-06.jpg" alt="Image" class="img-fluid">
+                    <img src="img/basketball.jpeg" alt="Image" class="img-fluid">
                     <figcaption class="d-flex align-items-center justify-content-center">
-                        <h2>Pinky</h2>
+                        <h2>Basketball</h2>
                         <a href="photo-detail.html">View more</a>
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">10 Oct 2020</span>
-                    <span>11,402 views</span>
+                    <span class="tm-text-gray"> </span>
+                    <span>20 Available </span>
                 </div>
             </div>
             
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                 <figure class="effect-ming tm-video-item">
-                    <img src="img/img-01.jpg" alt="Image" class="img-fluid">
+                    <img src="img/badminton.jpeg" alt="Image" class="img-fluid">
                     <figcaption class="d-flex align-items-center justify-content-center">
-                        <h2>Hangers</h2>
+                        <h2>Badminton</h2>
                         <a href="photo-detail.html">View more</a>
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">24 Sep 2020</span>
-                    <span>16,008 views</span>
+                    <span class="tm-text-gray"> </span>
+                    <span>20 Available </span>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                 <figure class="effect-ming tm-video-item">
-                    <img src="img/img-02.jpg" alt="Image" class="img-fluid">
+                    <img src="img/tennis.jpeg" alt="Image" class="img-fluid">
                     <figcaption class="d-flex align-items-center justify-content-center">
-                        <h2>Perfumes</h2>
+                        <h2>Tennis</h2>
                         <a href="photo-detail.html">View more</a>
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">20 Sep 2020</span>
-                    <span>12,860 views</span>
+                    <span class="tm-text-gray"> </span>
+                    <span>20 Available </span>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                 <figure class="effect-ming tm-video-item">
-                    <img src="img/img-07.jpg" alt="Image" class="img-fluid">
+                    <img src="img/tt.jpeg" alt="Image" class="img-fluid">
                     <figcaption class="d-flex align-items-center justify-content-center">
-                        <h2>Bus</h2>
+                        <h2>Table Tennis</h2>
                         <a href="photo-detail.html">View more</a>
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">16 Sep 2020</span>
-                    <span>10,900 views</span>
+                    <span class="tm-text-gray"> </span>
+                    <span>20 Available </span>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
@@ -178,47 +179,47 @@ https://templatemo.com/tm-556-catalog-z
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">12 Sep 2020</span>
-                    <span>11,300 views</span>
+                    <span class="tm-text-gray"> </span>
+                    <span>20 Available </span>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                 <figure class="effect-ming tm-video-item">
-                    <img src="img/img-09.jpg" alt="Image" class="img-fluid">
+                    <img src="img/chess.jpeg" alt="Image" class="img-fluid">
                     <figcaption class="d-flex align-items-center justify-content-center">
-                        <h2>Abstract</h2>
+                        <h2>chess</h2>
                         <a href="photo-detail.html">View more</a>
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">10 Sep 2020</span>
-                    <span>42,700 views</span>
+                    <span class="tm-text-gray"> </span>
+                    <span>20 Available </span>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                 <figure class="effect-ming tm-video-item">
-                    <img src="img/img-10.jpg" alt="Image" class="img-fluid">
+                    <img src="img/scrabble.jpeg" alt="Image" class="img-fluid">
                     <figcaption class="d-flex align-items-center justify-content-center">
-                        <h2>Flowers</h2>
+                        <h2>Scrabble</h2>
                         <a href="photo-detail.html">View more</a>
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">8 Sep 2020</span>
-                    <span>11,402 views</span>
+                    <span class="tm-text-gray"> </span>
+                    <span>20 Available </span>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                 <figure class="effect-ming tm-video-item">
-                    <img src="img/img-11.jpg" alt="Image" class="img-fluid">
+                    <img src="img/darts.jpeg" alt="Image" class="img-fluid">
                     <figcaption class="d-flex align-items-center justify-content-center">
-                        <h2>Rosy</h2>
+                        <h2>Darts</h2>
                         <a href="photo-detail.html">View more</a>
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">4 Sep 2020</span>
-                    <span>32,906 views</span>
+                    <span class="tm-text-gray"> </span>
+                    <span>20 Available </span>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
@@ -230,8 +231,8 @@ https://templatemo.com/tm-556-catalog-z
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">28 Aug 2020</span>
-                    <span>50,700 views</span>
+                    <span class="tm-text-gray"> </span>
+                    <span>20 Available </span>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
@@ -243,8 +244,8 @@ https://templatemo.com/tm-556-catalog-z
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">22 Aug 2020</span>
-                    <span>107,510 views</span>
+                    <span class="tm-text-gray"> </span>
+                    <span>20 Available </span>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
@@ -256,8 +257,8 @@ https://templatemo.com/tm-556-catalog-z
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">14 Aug 2020</span>
-                    <span>118,006 views</span>
+                    <span class="tm-text-gray"> </span>
+                    <span>20 Available </span>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
@@ -269,8 +270,8 @@ https://templatemo.com/tm-556-catalog-z
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">9 Aug 2020</span>
-                    <span>121,300 views</span>
+                    <span class="tm-text-gray"> </span>
+                    <span>20 Available </span>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
@@ -282,8 +283,8 @@ https://templatemo.com/tm-556-catalog-z
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">3 Aug 2020</span>
-                    <span>21,204 views</span>
+                    <span class="tm-text-gray"> </span>
+                    <span>20 Available </span>
                 </div>
             </div>         
         </div> <!-- row -->

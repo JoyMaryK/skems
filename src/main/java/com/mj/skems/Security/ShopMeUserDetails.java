@@ -1,4 +1,4 @@
-package com.mj.skems.Security.model;
+package com.mj.skems.Security;
 
 
 
@@ -13,6 +13,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.mj.skems.Security.model.Role;
+import com.mj.skems.Security.model.User;
+
 
 
 public class ShopMeUserDetails implements UserDetails{
@@ -21,10 +24,26 @@ public class ShopMeUserDetails implements UserDetails{
     public ShopMeUserDetails(User user){
         this.user = user;
     }
+    public String getFirstName() {
+        return this.user.getFirstName();
+    }
+    
+    public String getLastName(){
+        return this.user.getLastName();
+    }
+
+    public String getRegStaffNo(){
+        return this.user.getRegStaffNo();
+    }
+
+    public String getPhoneNo(){
+        return this.user.getPhoneNo().toString();
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-       Set<Role> roles = (Set<Role>) user.getRoles();
+        Collection<Role> roles = user.getRoles();
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
          
         for (Role role : roles) {
@@ -32,7 +51,6 @@ public class ShopMeUserDetails implements UserDetails{
         }
         return authorities;
     }
-
     @Override
     public String getPassword() {
         // TODO Auto-generated method stub

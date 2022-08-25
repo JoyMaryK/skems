@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import com.mj.skems.Security.model.User;
 import com.mj.skems.Security.model.Role;
-import com.mj.skems.Security.model.ShopMeUserDetails;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,6 +31,7 @@ public class UserServiceImpl implements UserService {
     public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
+
    
     private Object mapToUserDto(User user) {
         UserRegistrationDto userDto = new UserRegistrationDto();
@@ -53,19 +53,30 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findUserByEmail(email);
-        if (user == null) {
-            throw new UsernameNotFoundException("Invalid username or password.");
-        }
-        return new org.springframework.security.core.userdetails.User(user.getEmail()
-                    , user.getPassword(),
-                    user.getRoles().stream()
-                            .map((role) -> new SimpleGrantedAuthority(role.getName()))
-                            .collect(Collectors.toList()));
+    // @Override
+    // public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    //     User user = userRepository.findUserByEmail(email);
+    //     if (user == null) {
+    //         throw new UsernameNotFoundException("Invalid username or password.");
+    //     }
+    //     return new org.springframework.security.core.userdetails.User(user.getEmail()
+    //                 , user.getPassword(),
+    //                 user.getRoles().stream()
+    //                         .map((role) -> new SimpleGrantedAuthority(role.getName()))
+    //                         .collect(Collectors.toList())); }
             
         
+    
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+      
+        // TODO Auto-generated method stub
+        User user = userRepository.findUserByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException("Could not find user with that email");
+        }
+         
+        return new ShopMeUserDetails(user);
     }
 
    
