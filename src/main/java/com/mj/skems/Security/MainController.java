@@ -1,5 +1,7 @@
 package com.mj.skems.Security;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import javax.persistence.Id;
@@ -13,15 +15,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.mj.skems.Security.model.User;
+import com.mj.skems.inventory.InventoryRecords;
+import com.mj.skems.inventory.InventoryRecordsService;
 
 @Controller
 public class MainController {
-
     @Autowired
- UserService service;
+    InventoryRecordsService inventoryService;
+    @Autowired
+     UserService service;
 
  @Autowired
  UserRepository userRepository;
@@ -79,7 +87,29 @@ public class MainController {
             return "index";
                 }
 
+
+    @PostMapping("/book")
+              
+    public String saveBooking(@ModelAttribute("inventoryRecords") InventoryRecords inventoryRecords, Model model){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+              
+        String item = inventoryRecords.getItem();
+               String dateBooked = inventoryRecords.getDateBooked();
+            model.addAttribute("item", item);
+            model.addAttribute("dateBooked", dateBooked);
+                    inventoryService.saveBooking(inventoryRecords);
+                    return "index";
+                }
+
+
+
+    @GetMapping("/booked")
+    public String listRecords(Model model){
+        model.addAttribute("inventoryRecords",inventoryService.listBookedRecords() );
+        return"booked";
+    }
+            }
   
-}
+        
     
 
