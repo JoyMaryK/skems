@@ -30,7 +30,7 @@ public class InventoryRecords {
     private String regNo;
     private String status;
     private String item;
-    private Date dateIssued;
+    private String dateIssued;
     private Date dateReturned;
     private Date dateCreated;
     private String dateBooked;

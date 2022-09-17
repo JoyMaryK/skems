@@ -26,6 +26,7 @@ public class InventoryRecordsService {
 
 
     public List<InventoryRecords> listBookedRecords(){
+
         String date = LocalDate.now().toString();
         List<InventoryRecords> bookedRecords = inventoryRecordsRepository.findAllByDateBooked(date);
         return bookedRecords;
@@ -35,6 +36,17 @@ public class InventoryRecordsService {
         return inventoryRecordsRepository.findAll();
     };
     
+    public List<InventoryRecords> listIssuedRecords(){
+        
+        String date = LocalDate.now().toString();
+        return inventoryRecordsRepository.findAllByDateIssued(date);
+    }
+
+    public  void saveIssuing(String regNo, String staffIssued, String dateIssued){
+        
+        inventoryRecordsRepository.addIssuing(regNo, staffIssued, dateIssued);
+
+    }
    public InventoryRecords saveBooking(InventoryRecords inventory){
         InventoryRecords records = new InventoryRecords();
 
