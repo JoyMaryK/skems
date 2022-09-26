@@ -24,7 +24,7 @@ public class InventoryRecordsService {
     @Autowired 
     InventoryRecordsRepository inventoryRecordsRepository;
 
-
+                            //  Booked list
     public List<InventoryRecords> listBookedRecords(){
 
         String date = LocalDate.now().toString();
@@ -36,17 +36,20 @@ public class InventoryRecordsService {
         return inventoryRecordsRepository.findAll();
     };
     
+                        //  Issued List 
     public List<InventoryRecords> listIssuedRecords(){
-        
-        String date = LocalDate.now().toString();
-        return inventoryRecordsRepository.findAllByDateIssued(date);
-    }
 
+        return inventoryRecordsRepository.findAllByDateIssued();
+    }
+        
+                    //  save Issuing 
     public  void saveIssuing(String regNo, String staffIssued, String dateIssued){
         
         inventoryRecordsRepository.addIssuing(regNo, staffIssued, dateIssued);
 
     }
+
+                //  Save Booking
    public InventoryRecords saveBooking(InventoryRecords inventory){
         InventoryRecords records = new InventoryRecords();
 
@@ -59,6 +62,21 @@ public class InventoryRecordsService {
         records.setFirstName(user.getFirstName()); 
         records.setLastName(user.getLastName());
            return inventoryRecordsRepository.save(records);
+    
+        }
+
+            //   Save Return
+    public InventoryRecords saveReturn(InventoryRecords inventory, long id){
+        InventoryRecords records = inventoryRecordsRepository.findById(id).get();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
+          
+        String date = LocalDate.now().toString();
+        records.setDateReturned(date);
+        records.setStaffReurned(user.getRegStaffNo());
+        records.setStatus(inventory.getStatus());
+        return inventoryRecordsRepository.save(records);
+        
     }
 
 }

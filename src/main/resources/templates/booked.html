@@ -20,8 +20,8 @@
     </div>
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/index}">
-                <i class="fas fa-table-tennis"></i>
+            <a class="navbar-brand text-success" th:href="@{/index}">
+                <i class="fas fa-table-tennis text-success"></i>
                 Sports Stores
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,10 +37,10 @@
                 </li>
                 <li class="nav-item"> -->
                 <li class="nav-item">
-                    <a class="nav-link nav-link-3 active" aria-current="page" th:href="@{/booked}">Booked</a>
+                    <a class="nav-link nav-link-2 active" aria-current="page" th:href="@{/booked}">Booked</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-2" th:href="@{/about}">About</a>
+                    <a class="nav-link nav-link-3" th:href="@{/about}">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-4" th:href="@{/issued}">Issued</a>
@@ -55,9 +55,9 @@
 
     <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpeg" style="margin-top:20px ; margin-bottom: 20px;"></div>
     <div th:if="${ #lists.isEmpty(inventoryRecords)}">
-        <h4>Looks like there's no activity for today</h4>
+        <h4 class="text-success">Looks like there's no activity for today</h4>
         
-        <button type="button" class="btn btn-outline-primary">ADD NEW</button>
+        <button type="button" class="btn btn-outline-success">ADD NEW</button>
     
         </div>
     <div th:if="${ not#lists.isEmpty(inventoryRecords)}">
@@ -66,15 +66,15 @@
         <div class="row">
             <div class="col-lg-10 mt-5 mb-5">
                 <table class="table table-sm table-bordered table-striped" style="width: 100%">
-                    <h3 class="text-primary">List of Booked Items</h3><br>
+                    <h3 class="text-success">List of Booked Items</h3><br>
 <h6>Click the Issue button to Issue the Item to the student.</h6>
                     <thead>
                         <tr>
-                            <th class="text-primary">First Name</th>
-                            <th class="text-primary">Last Name</th>
-                            <th class="text-primary">Reg. No.</th>
-                            <th class="text-primary">Item</th>
-                            <th class="text-primary">Date Booked</th>
+                            <th class="text-success">First Name</th>
+                            <th class="text-success">Last Name</th>
+                            <th class="text-success">Reg. No.</th>
+                            <th class="text-success">Item</th>
+                            <th class="text-success">Date Booked</th>
                             
                             <!-- <th class="text-primary">Issue Item</th> -->
                           </tr>
@@ -88,7 +88,7 @@
                             <td th:text="${inventoryRecord.item}"></td>
                             <td th:text="${inventoryRecord.dateBooked}"></td>                            
                             <td><input type="hidden" th:value="${inventoryRecord.regNo}" name="regNo"/>
-                                <button type="submit" class="btn btn-outline-primary">Issue Item</button></td>
+                                <button type="submit" class="btn btn-outline-success">Issue Item</button></td>
                         </form>
                         </tr>
                     </tbody>
@@ -103,11 +103,11 @@
         <div class="container-fluid tm-container-small">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-12 px-5 mb-5">
-                    <h3 class="tm-text-primary mb-4 tm-footer-title">About Sports Stores</h3>
+                    <h3 class="text-success mb-4 tm-footer-title">About Sports Stores</h3>
                     <p>Egerton University sports store caters for all students in an array of activities both recreational and competitive.</p>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12 px-5 mb-5">
-                    <h3 class="tm-text-primary mb-4 tm-footer-title">Our Links</h3>
+                    <h3 class="text-success mb-4 tm-footer-title">Our Links</h3>
                     <ul class="tm-footer-links pl-0">
                         <li><a href="#">Advertise</a></li>
                         <li><a href="#">Support</a></li>
@@ -127,7 +127,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-8 col-md-7 col-12 px-5 mb-3">
+                <div class="col-lg-8 col-md-7 col-12 px-5 mb-3 text-success">
                     Copyright 2022 Egerton University. All rights reserved.
                 </div>
                 <!-- <div class="col-lg-4 col-md-5 col-12 px-5 text-right">

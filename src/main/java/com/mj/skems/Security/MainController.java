@@ -92,12 +92,13 @@ public class MainController {
     @PostMapping("/book")
               
     public String saveBooking(@ModelAttribute("inventoryRecords") InventoryRecords inventoryRecords, Model model){
-        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+       
               
         String item = inventoryRecords.getItem();
                String dateBooked = inventoryRecords.getDateBooked();
             model.addAttribute("item", item);
             model.addAttribute("dateBooked", dateBooked);
+            
                     inventoryService.saveBooking(inventoryRecords);
                     return "index";
                 }
@@ -132,6 +133,28 @@ public class MainController {
         model.addAttribute("inventoryRecords",inventoryService.listIssuedRecords() );
         return"issued";
     }
+
+  
+    @PostMapping("/returned")
+              
+    public String saveItemReturn(@ModelAttribute("inventoryRecords") InventoryRecords inventoryRecords, Model model){
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
+
+
+        String dateReturned = inventoryRecords.getDateReturned();
+               String staffReurned = user.getRegStaffNo().toString();
+               String status = inventoryRecords.getStatus();
+               long id = inventoryRecords.getId();
+            model.addAttribute("dateReturned", dateReturned);
+            model.addAttribute("staffReurned", staffReurned);
+            model.addAttribute("status", status);
+            model.addAttribute("id", id);
+
+                    inventoryService.saveReturn(inventoryRecords, id);
+                    return "redirect:issued";
+                }
 
 }
   

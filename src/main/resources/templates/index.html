@@ -31,10 +31,10 @@ https://templatemo.com/tm-556-catalog-z
         <div class="loader-section section-right"></div>
 
     </div>
-    <nav class="navbar navbar-expand-lg">
+    <nav class=" navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/}">
-                <i class="fas fa-basketball-ball mr-2"></i>
+            <a class="navbar-brand text-success" th:href="@{/}">
+                <i class="fas fa-basketball-ball mr-2 text-success "></i>
                 Sports Stores 
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,7 @@ https://templatemo.com/tm-556-catalog-z
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link nav-link-1 active" aria-current="page" th:href="@{/}">Home</a>
+                    <a class="nav-link nav-link-3 active" aria-current="page" th:href="@{/}">Home</a>
                 </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link nav-link-2" href="videos.html">Videos</a>
@@ -52,13 +52,13 @@ https://templatemo.com/tm-556-catalog-z
                     <a class="nav-link nav-link-2" th:href="@{/about}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-3" th:href="@{/contact}">Contact</a>
+                    <a class="nav-link nav-link-1" th:href="@{/contact}">Contact</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-4" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-5" th:href="@{/booked}">Booked</a>
+                    <a class="nav-link nav-link-2" th:href="@{/booked}">Booked</a>
                 </li>
             </ul>
             </div>
@@ -67,21 +67,21 @@ https://templatemo.com/tm-556-catalog-z
 
     <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpeg" style="margin-top:20px ; ">
         <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control mr-sm-2 text-success" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
     </div>
 
     <div class="container-fluid tm-container-content tm-mt-60">
         <div class="row mb-4">
-            <h2 class="col-6 tm-text-primary">
-                Sport Items <span sec:authentication="principal.firstName">Fullname</span>
-            </h2>
-            <div class="col-6 d-flex justify-content-end align-items-center">
-                <form action="" class="tm-text-primary">
+            <!-- <h2 class="col-6 text-success">
+                Sport Items 
+            </h2> -->
+            <!-- <div class="col-6 d-flex justify-content-end align-items-center">
+                <form action="" class="text-success">
                     Page <input type="text" value="1" size="1" class="tm-input-paging tm-text-primary"> of 200
                 </form>
-            </div>
+            </div> -->
         </div>
         <div class="row tm-mb-90 tm-gallery">
         	<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
@@ -95,7 +95,7 @@ https://templatemo.com/tm-556-catalog-z
                             <div class="modal-dialog modal-dialog-centered" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="tm-text-primary" id="exampleModalLongTitle">Soccer Ball</h5>
+                                  <h5 class="text-success" id="exampleModalLongTitle">Soccer Ball</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
@@ -110,7 +110,7 @@ https://templatemo.com/tm-556-catalog-z
                                         
                                        
                                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-outline-primary" >Book</button>
+                                        <button type="submit" class="btn btn-outline-success" >Book</button>
                                       </form>
                                 </div>
                               </div>
@@ -357,11 +357,11 @@ https://templatemo.com/tm-556-catalog-z
         <div class="container-fluid tm-container-small">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-12 px-5 mb-5">
-                    <h3 class="tm-text-primary mb-4 tm-footer-title">About Sports Stores</h3>
+                    <h3 class="text-success mb-4 tm-footer-title">About Sports Stores</h3>
                     <p>Egerton University sports store caters for all students in an array of activities both recreational and competitive.</p>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12 px-5 mb-5">
-                    <h3 class="tm-text-primary mb-4 tm-footer-title">Our Links</h3>
+                    <h3 class="text-success mb-4 tm-footer-title">Our Links</h3>
                     <ul class="tm-footer-links pl-0">
                         <li><a href="#">Advertise</a></li>
                         <li><a href="#">Support</a></li>

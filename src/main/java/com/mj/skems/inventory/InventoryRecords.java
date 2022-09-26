@@ -31,7 +31,7 @@ public class InventoryRecords {
     private String status;
     private String item;
     private String dateIssued;
-    private Date dateReturned;
+    private String dateReturned;
     private Date dateCreated;
     private String dateBooked;
     private String staffIssued;
