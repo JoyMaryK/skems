@@ -1,4 +1,4 @@
-package com.mj.skems.inventory;
+package com.mj.skems.inventoryRecords;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -43,9 +43,16 @@ public class InventoryRecordsService {
     }
         
                     //  save Issuing 
-    public  void saveIssuing(String regNo, String staffIssued, String dateIssued){
+    public  InventoryRecords saveIssuing(InventoryRecords inventory, long id){
+        InventoryRecords records = inventoryRecordsRepository.findById(id).get();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
+          
+        String date = LocalDate.now().toString();
+        records.setDateIssued(date);
+        records.setStaffIssued(user.getRegStaffNo());
+        return inventoryRecordsRepository.save(records);
         
-        inventoryRecordsRepository.addIssuing(regNo, staffIssued, dateIssued);
 
     }
 

@@ -81,6 +81,10 @@
                           </tr>
                     </thead>
                     <tbody>
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger">Invalid username or password.
+                            </div>
+                        </div>
                         <tr th:each="inventoryRecord: ${inventoryRecords}">
                             <form action="#" th:action="@{/returned}" th:object="${inventoryRecords}" method="post">
                             <td th:text="${inventoryRecord.firstName}"></td>
@@ -89,16 +93,20 @@
                             <td th:text="${inventoryRecord.item}"></td>
                             <td th:text="${inventoryRecord.staffIssued}"></td>
                             <td th:text="${inventoryRecord.dateIssued}"></td>        
-                            <td>    <input type="radio" 
-                                name="status" 
-                                value="good">Good
-                        
-                         <input type="radio" 
-                                name="status" 
-                                value="good">Bad</td>     
+                            <td th:value="${inventoryRecord.status}">
+                               
+                                    <input type="radio" name="status"  id="option1" value="good" checked="true">
+                                    <label  for="option1">Still Good</label> 
+                                
+                                    <input type="radio" name="status" id="option2" value="bad">
+                                    <label  for="option2">Almost Bad</label>
+                                <!-- <br>
+                                    <input type="radio" name="status" id="option3" value="unacceptable">
+                                    <label  for="option2">Unacceptable</label> -->
+                            </td>     
                                 <td><input type="hidden" th:value="${inventoryRecord.id}" name="id"></td>           
                             <td><input type="hidden" th:value="${inventoryRecord.regNo}" name="regNo"/>
-                                <button type="submit" class="btn btn-outline-success">Returned</button></td>
+                                <button type="submit" class="btn btn-outline-success"  onclick="validate()">Returned</button></td>
                             </form>
                           </tr>
                         
@@ -153,6 +161,12 @@
         $(window).on("load", function() {
             $('body').addClass('loaded');
         });
+
+        function validate()
+    {
+    if (!document.getElementById("option1").checked && !document.getElementById("option2").checked)
+            {alert("Please specify the Item's condition");
+            return;}}
     </script>
 </body>
 </html>

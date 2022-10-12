@@ -1,4 +1,4 @@
-package com.mj.skems.inventory;
+package com.mj.skems.inventoryRecords;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -19,12 +19,12 @@ public interface InventoryRecordsRepository extends JpaRepository<InventoryRecor
     @Query("SELECT c FROM InventoryRecords c WHERE c.dateIssued IS NOT NULL and c.dateReturned is null")
     public List<InventoryRecords>findAllByDateIssued( );
     
-    @Transactional
-    @Modifying
-    @Query("update InventoryRecords i set i.dateIssued = :dateIssued, i.staffIssued = :staffIssued where i.regNo = :regNo and dateIssued is NULL")
-    //@Query("INSERT INTO InventoryRecords (dateIssued, staffIssued) VALUES (:dateIssued , :staffIssued) where regNo =:regNo and dateIssued is NULL ")
-    void addIssuing(@Param(value = "regNo") String regNo,
-     @Param(value = "staffIssued") String staffIssued, @Param(value = "dateIssued") String dateIssued);
+    // @Transactional
+    // @Modifying
+    // @Query("update InventoryRecords i set i.dateIssued = :dateIssued, i.staffIssued = :staffIssued where i.regNo = :regNo and dateIssued is NULL")
+    // //@Query("INSERT INTO InventoryRecords (dateIssued, staffIssued) VALUES (:dateIssued , :staffIssued) where regNo =:regNo and dateIssued is NULL ")
+    // void addIssuing(@Param(value = "regNo") String regNo,
+    //  @Param(value = "staffIssued") String staffIssued, @Param(value = "dateIssued") String dateIssued);
 
 
     // @Query(value= "SELECT * FROM inventory_records WHERE date_issued is null and date_booked is not null", nativeQuery = true)

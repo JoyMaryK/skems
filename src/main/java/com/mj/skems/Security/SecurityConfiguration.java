@@ -33,6 +33,9 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
+            .antMatchers("/booked").access("hasAuthority('STAFF')")
+            .antMatchers("/issued").access("hasAuthority('STAFF')")
+
             .antMatchers(
                 "/registration**",
                 "/js/**",

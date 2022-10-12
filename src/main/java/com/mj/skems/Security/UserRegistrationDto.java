@@ -36,7 +36,10 @@ public class UserRegistrationDto {
     // @AssertTrue
     // private Boolean terms;
 
-    
+    @NotEmpty
+    private String role;
+
+
     private Long phoneNo;
 
     @NotEmpty
@@ -110,6 +113,14 @@ public class UserRegistrationDto {
     }
     public void setRegStaffNo(String regStaffNo) {
     this.regStaffNo = regStaffNo;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
 }

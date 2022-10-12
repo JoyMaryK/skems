@@ -86,7 +86,8 @@
                             <td th:text="${inventoryRecord.lastName}"></td>
                             <td th:text="${inventoryRecord.regNo}"></td>
                             <td th:text="${inventoryRecord.item}"></td>
-                            <td th:text="${inventoryRecord.dateBooked}"></td>                            
+                            <td th:text="${inventoryRecord.dateBooked}"></td>   
+                            <td><input type="hidden" th:value="${inventoryRecord.id}" name="id"></td>                         
                             <td><input type="hidden" th:value="${inventoryRecord.regNo}" name="regNo"/>
                                 <button type="submit" class="btn btn-outline-success">Issue Item</button></td>
                         </form>

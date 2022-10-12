@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import javax.persistence.Id;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +24,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.mj.skems.Security.model.User;
-import com.mj.skems.inventory.InventoryRecords;
-import com.mj.skems.inventory.InventoryRecordsService;
+import com.mj.skems.inventoryRecords.InventoryRecords;
+import com.mj.skems.inventoryRecords.InventoryRecordsService;
 
 @Controller
 public class MainController {
@@ -112,17 +114,23 @@ public class MainController {
     }
            
     @PostMapping("/issued")
-    public String addIssuedItemDetails(@ModelAttribute("inventoryRecords") InventoryRecords inventoryRecords, Model model){
-        //get details of the logged in user to get the staff member's staff id
+    public String addIssuedItemDetails(@ModelAttribute("inventoryRecords") InventoryRecords inventoryRecords,  Model model ){
+       
+       //get details of the logged in user to get the staff member's staff id
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
 
 
         String regNo = inventoryRecords.getRegNo();
-        model.addAttribute("regNo", regNo);
         String staffIssued = user.getRegStaffNo();
-        String dateIssued = LocalDate.now().toString();
-        inventoryService.saveIssuing(regNo, staffIssued, dateIssued);
+        String dateIssued = inventoryRecords.getDateIssued();
+        long id = inventoryRecords.getId();
+        model.addAttribute("dateIssued", dateIssued);
+        model.addAttribute("staffIssued", staffIssued);
+        model.addAttribute("regNo", regNo);
+        model.addAttribute("id", id);
+        
+        inventoryService.saveIssuing(inventoryRecords, id);
 
        return "redirect:booked" ;
        
