@@ -23,7 +23,7 @@
         <div class="container-fluid">
             <a class="navbar-brand text-success" th:href="@{/}">
                 <i class="fas fa-basketball-ball mr-2 text-success "></i>
-                Sports Stores 
+                E.U Sports Stores 
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
@@ -72,50 +72,60 @@
             </div>
         </div>
     </div>
-        <div class="row tm-mb-90 tm-gallery">
-        	<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
-                <figure class="effect-ming tm-video-item">
-                    <img src="img/football.jpeg" alt="Image" class="img-fluid">
-                    <figcaption class="d-flex align-items-center justify-content-center" >
-                        <h2>Soccer</h2>
-                        
-                        <a  data-toggle="modal" data-target="#exampleModal1" data-whatever="soccer ball">View more</a>
-                        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="text-success" id="exampleModalLongTitle">Soccer Ball</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form th:action="@{/book}" th:object="${inventoryRecords}" method="post">
-                                        <h5 class="text-body">confirm booking  </h5>                               
-                                        
-                                        <input type="text" value="soccer ball" style="margin-bottom: 5px;" readonly name="item"><br>
-                                        <input type="date" placeholder="yyyy-mm-dd" value=""
-                                        min="1997-01-01" max="2030-12-31" style="margin-bottom: 15px;" name="dateBooked"><br>
-                                        
-                                       
-                                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-outline-success" >Book</button>
-                                      </form>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                    </figcaption>                    
-                </figure>
-                <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray"> </span>
-                    <span>20 Available </span>
-                </div>
-            </div>
-        </div>
-
-         
     
+         
+    <table style="width: 100%">
+        <tr th:each="inventoris : ${inventory}">
+            <div class="card custom-card mr-2 mt-2 ml-2 mb-2"
+                    style="width: 18rem; display: inline-block; ">
+                  
+                    <div class="card" style="width: 18rem; ">
+                        <figure class="effect-ming tm-video-item">
+                            <img src="img/football.jpeg" alt="Image" class="img-fluid">
+                            <figcaption class="d-flex align-items-center justify-content-center" >
+                                <h2 th:text="${inventoris.sport_name}"></h2>
+                                <a  data-toggle="modal" data-target="#exampleModal1" th:attrappend="data-target=${inventoris.id}"data-whatever="soccer ball">View more</a>
+                                <div class="modal fade" id="exampleModal1"th:attrappend="id=${inventoris.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="text-success" id="exampleModalLongTitle"  >CONFIRM BOOKING</h5>
+                                          <button type="button" class="close btn btn-light"  data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form th:action="@{/book}" th:object="${inventoryRecords}" method="post">                          
+                                                
+                                                <input type="text" th:value="${inventoris.sport_item}"  th:text="${inventoris.sport_item}" 
+                                                 readonly name="item" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"><br>
+                                                <input type="date" placeholder="yyyy-mm-dd" value=""
+                                                min="1997-01-01" max="2030-12-31" style="margin-bottom: 15px;" name="dateBooked"
+                                                class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"><br>
+                                                
+                                               
+                                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" style="border-radius: 10%;">Close</button>
+                                                <button type="submit" class="btn btn-success" style="border-radius: 10%;">Book</button>
+                                              </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                            </figcaption>
+                        </figure>
+                        <div class="card-body">
+                         
+                           <span class="card-text"  th:text="${inventoris.available}"></span>
+                           <span>available</span>
+                          <button class="btn sm btn-outline-success" style="margin-left: 8rem; border-radius: 70%;"><i class="fas fa-info"></i></button>
+                        </div>
+                       
+                        
+                      </div>
+                     
+                </div>
+        </tr>
+    </table>
    
      
 </form>

@@ -18,10 +18,10 @@
         <div class="loader-section section-right"></div>
 
     </div>
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg  ">
         <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/index}">
-                <i class="fas fa-table-tennis"></i>
+            <a class="navbar-brand text-success " th:href="@{/index}">
+                <i class="fas fa-table-tennis text-success "></i>
                 Sports Stores
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,7 @@
                     <a class="nav-link nav-link-3 "  th:href="@{/booked}">Booked</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-3 active" aria-current="page" th:href="@{/issued}">Issued</a>
+                    <a class="nav-link nav-link-3 active" aria-current="page" th:href="@{/records}">Records</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-2" th:href="@{/about}">About</a>
@@ -63,30 +63,52 @@
       <div class="container">
         <div class="row">
             <div class="col-lg-10 mt-5 mb-5">
+                <div class="container justify-content-center">
+    
+                    <div class="row">
+                
+                       <!-- <div class="col-md-8"> -->
+                           
+                           <div class="input-group mb-3"> 
+                  <input type="text" class="form-control input-text text-success " placeholder="Search by Reg. No." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-success btn-lg" type="button"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+                           
+                       <!-- </div>         -->
+                        
+                    </div>
+                    
+                    
+                </div>
+                
                 <table class="table table-sm table-bordered table-striped" style="width: 100%">
-                    <h3 class="text-primary">List of Issued Items</h3><br>
-              <h6>Click the Returned button if the Item has been returned.</h6>
+                   
                     <thead>
                         <tr>
-                            <th class="text-primary">First Name</th>
-                            <th class="text-primary">Last Name</th>
-                            <th class="text-primary">Reg. No.</th>
-                            <th class="text-primary">Item</th>
-                            <th class="text-primary">Issued By</th>
-                            <th class="text-primary">Date Issued</th>
+                            <th class="text-success">Student Name</th>
+                            <th class="text-success">Reg. No.</th>
+                            <th class="text-success">Item</th>
+                            <th class="text-success">Date Issued</th>
+                            <th class="text-success">Issued By</th>
+                            <th class="text-success">Date Returned</th>
+                            <th class="text-success">Verified By</th>
                             
-                            <!-- <th class="text-primary">Issue Item</th> -->
+                            
+                            <!-- <th class="text-success">Issue Item</th> -->
                           </tr>
                     </thead>
                     <tbody>
                         <tr th:each="inventoryRecord: ${inventoryRecords}">
                             <td th:text="${inventoryRecord.firstName}"></td>
-                            <td th:text="${inventoryRecord.lastName}"></td>
                             <td th:text="${inventoryRecord.regNo}"></td>
                             <td th:text="${inventoryRecord.item}"></td>
+                            <td th:text="${inventoryRecord.dateIssued}"></td> 
                             <td th:text="${inventoryRecord.staffIssued}"></td>
-                            <td th:text="${inventoryRecord.dateIssued}"></td>                            
-                            <td><button type="button" class="btn btn-outline-primary">Returned</button></td>
+                            <td th:text="${inventoryRecord.dateReturned}"></td> 
+                            <td th:text="${inventoryRecord.staffReurned}"></td> 
+                                                    
                           </tr>
                     </tbody>
                 </table>
@@ -100,11 +122,11 @@
         <div class="container-fluid tm-container-small">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-12 px-5 mb-5">
-                    <h3 class="tm-text-primary mb-4 tm-footer-title">About Sports Stores</h3>
+                    <h3 class="text-success mb-4 tm-footer-title">About Sports Stores</h3>
                     <p>Egerton University sports store caters for all students in an array of activities both recreational and competitive.</p>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12 px-5 mb-5">
-                    <h3 class="tm-text-primary mb-4 tm-footer-title">Our Links</h3>
+                    <h3 class="text-success mb-4 tm-footer-title">Our Links</h3>
                     <ul class="tm-footer-links pl-0">
                         <li><a href="#">Advertise</a></li>
                         <li><a href="#">Support</a></li>
@@ -127,11 +149,10 @@
                 <div class="col-lg-8 col-md-7 col-12 px-5 mb-3">
                     Copyright 2022 Egerton University. All rights reserved.
                 </div>
-                <!-- <div class="col-lg-4 col-md-5 col-12 px-5 text-right">
-                    Designed by <a href="https://templatemo.com" class="tm-text-gray" rel="sponsored" target="_parent">TemplateMo</a>
-                </div> -->
+               
             </div>
         </div>
+      
     </footer>
     
     <script src="js/plugins.js"></script>

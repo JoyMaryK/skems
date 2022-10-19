@@ -57,7 +57,7 @@
     <div th:if="${ #lists.isEmpty(inventoryRecords)}">
         <h4 class="text-success">Looks like there's no activity for today</h4>
         
-        <button type="button" class="btn btn-outline-success">ADD NEW</button>
+        <!-- <button type="button" class="btn btn-outline-success">ADD NEW</button> -->
     
         </div>
     <div th:if="${ not#lists.isEmpty(inventoryRecords)}">
@@ -70,20 +70,20 @@
 <h6>Click the Issue button to Issue the Item to the student.</h6>
                     <thead>
                         <tr>
-                            <th class="text-success">First Name</th>
-                            <th class="text-success">Last Name</th>
+                            <th class="text-success">Student Name</th>
+                      
                             <th class="text-success">Reg. No.</th>
                             <th class="text-success">Item</th>
                             <th class="text-success">Date Booked</th>
                             
-                            <!-- <th class="text-primary">Issue Item</th> -->
+                            
                           </tr>
                     </thead>
                     <tbody>
                         <tr th:each="inventoryRecord: ${inventoryRecords}">
                             <form action="#" th:action="@{/issued}" th:object="${inventoryRecords}" method="post">
                             <td th:text="${inventoryRecord.firstName}"></td>
-                            <td th:text="${inventoryRecord.lastName}"></td>
+                        
                             <td th:text="${inventoryRecord.regNo}"></td>
                             <td th:text="${inventoryRecord.item}"></td>
                             <td th:text="${inventoryRecord.dateBooked}"></td>   

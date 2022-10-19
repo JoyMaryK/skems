@@ -40,11 +40,9 @@ public class InventoryModel {
     @Column(name = "Image", length = Integer.MAX_VALUE, nullable = true)
     private byte[] image;
 
-    private Integer availableNo;
+    private Integer available;
     private Integer totalNo;
     private Integer bookedNo;
     private Integer issuedNo;
-
-
 
 }

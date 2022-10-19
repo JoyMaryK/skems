@@ -33,7 +33,7 @@ public class InventoryRecordsService {
     };
 
    public List<InventoryRecords> listRecords(){
-        return inventoryRecordsRepository.findAll();
+        return inventoryRecordsRepository.findAllByDateReturned();
     };
     
                         //  Issued List 
@@ -48,9 +48,12 @@ public class InventoryRecordsService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
           
+        String staffIssuedNames[] = {user.getFirstName().toString()," ", user.getLastName().toString()}; 
+        String staffNamesCombined = staffIssuedNames[0] + staffIssuedNames[1] + staffIssuedNames[2];
+
         String date = LocalDate.now().toString();
         records.setDateIssued(date);
-        records.setStaffIssued(user.getRegStaffNo());
+        records.setStaffIssued(staffNamesCombined);
         return inventoryRecordsRepository.save(records);
         
 
@@ -62,12 +65,15 @@ public class InventoryRecordsService {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
+
+        String studentNames[] = {user.getFirstName().toString()," ", user.getLastName().toString()}; 
+        String studentNamesCombined = studentNames[0] + studentNames[1] + studentNames[2];
       
         records.setItem(inventory.getItem());
         records.setDateBooked(inventory.getDateBooked());
         records.setRegNo(user.getRegStaffNo()); 
-        records.setFirstName(user.getFirstName()); 
-        records.setLastName(user.getLastName());
+        records.setFirstName(studentNamesCombined); 
+        // records.setLastName(user.getLastName());
            return inventoryRecordsRepository.save(records);
     
         }
@@ -77,10 +83,13 @@ public class InventoryRecordsService {
         InventoryRecords records = inventoryRecordsRepository.findById(id).get();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
+
+        String staffIssuedNames[] = {user.getFirstName().toString()," ", user.getLastName().toString()}; 
+        String staffNamesCombined = staffIssuedNames[0] + staffIssuedNames[1] + staffIssuedNames[2];
           
         String date = LocalDate.now().toString();
         records.setDateReturned(date);
-        records.setStaffReurned(user.getRegStaffNo());
+        records.setStaffReurned(staffNamesCombined);
         records.setStatus(inventory.getStatus());
         return inventoryRecordsRepository.save(records);
         

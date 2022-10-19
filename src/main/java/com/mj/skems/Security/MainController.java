@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.mj.skems.Inventory.InventoryService;
 import com.mj.skems.Security.model.User;
 import com.mj.skems.inventoryRecords.InventoryRecords;
 import com.mj.skems.inventoryRecords.InventoryRecordsService;
@@ -34,6 +35,9 @@ public class MainController {
     @Autowired
      UserService service;
 
+     @Autowired 
+     InventoryService inventory_sService;
+
  @Autowired
  UserRepository userRepository;
     @GetMapping("/")
@@ -44,12 +48,15 @@ public class MainController {
  
             model.addAttribute("user", user);
             model.addAttribute("pageTitle", "Account Details");
-
-        return "index";
+            model.addAttribute("inventory",inventory_sService.listInventory() );
+        
+            return "index";
     }
 
     @GetMapping("/index")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("inventory",inventory_sService.listInventory() );
+        
         return "index";
     }
 
@@ -86,7 +93,8 @@ public class MainController {
 
             model.addAttribute("user", user);
             model.addAttribute("pageTitle", "Account Details");
-
+            model.addAttribute("inventory",inventory_sService.listInventory() );
+        
             return "index";
                 }
 
@@ -102,7 +110,7 @@ public class MainController {
             model.addAttribute("dateBooked", dateBooked);
             
                     inventoryService.saveBooking(inventoryRecords);
-                    return "index";
+                    return "redirect:index";
                 }
 
 
@@ -119,10 +127,12 @@ public class MainController {
        //get details of the logged in user to get the staff member's staff id
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
-
+            String staffIssuedNames[] = {user.getFirstName().toString(),user.getLastName().toString()}; 
+            String staffNamesCombined = staffIssuedNames[0] + staffIssuedNames[1];
 
         String regNo = inventoryRecords.getRegNo();
-        String staffIssued = user.getRegStaffNo();
+        // String staffIssued = user.getRegStaffNo();
+        String staffIssued = staffNamesCombined;
         String dateIssued = inventoryRecords.getDateIssued();
         long id = inventoryRecords.getId();
         model.addAttribute("dateIssued", dateIssued);
@@ -163,6 +173,13 @@ public class MainController {
                     inventoryService.saveReturn(inventoryRecords, id);
                     return "redirect:issued";
                 }
+
+
+    @GetMapping("/records")
+    public String allRecords(Model model){
+        model.addAttribute("inventoryRecords",inventoryService.listRecords() );
+        return"records";
+    }
 
 }
   

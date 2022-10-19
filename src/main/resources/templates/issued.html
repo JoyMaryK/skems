@@ -43,7 +43,7 @@
                     <a class="nav-link nav-link-3 active" aria-current="page" th:href="@{/issued}">Issued</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-2" th:href="@{/about}">About</a>
+                    <a class="nav-link nav-link-2" th:href="@{/records}">Records</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-4" th:href="@{/contact}">Contact</a>
@@ -68,8 +68,8 @@
               <h6>Click the Returned button if the Item has been returned.</h6>
                     <thead>
                         <tr>
-                            <th class="text-success">First Name</th>
-                            <th class="text-success">Last Name</th>
+                            <th class="text-success">Student Name</th>
+                           
                             <th class="text-success">Reg. No.</th>
                             <th class="text-success">Item</th>
                             <th class="text-success">Issued By</th>
@@ -77,7 +77,7 @@
                             <th class="text-success">Condition</th>
 
                             
-                            <!-- <th class="text-primary">Issue Item</th> -->
+                            
                           </tr>
                     </thead>
                     <tbody>
@@ -88,7 +88,7 @@
                         <tr th:each="inventoryRecord: ${inventoryRecords}">
                             <form action="#" th:action="@{/returned}" th:object="${inventoryRecords}" method="post">
                             <td th:text="${inventoryRecord.firstName}"></td>
-                            <td th:text="${inventoryRecord.lastName}"></td>
+                           
                             <td th:text="${inventoryRecord.regNo}"></td>
                             <td th:text="${inventoryRecord.item}"></td>
                             <td th:text="${inventoryRecord.staffIssued}"></td>

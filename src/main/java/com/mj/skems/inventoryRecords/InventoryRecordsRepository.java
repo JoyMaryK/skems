@@ -18,6 +18,9 @@ public interface InventoryRecordsRepository extends JpaRepository<InventoryRecor
 
     @Query("SELECT c FROM InventoryRecords c WHERE c.dateIssued IS NOT NULL and c.dateReturned is null")
     public List<InventoryRecords>findAllByDateIssued( );
+
+    @Query("SELECT c FROM InventoryRecords c WHERE c.dateReturned IS NOT NULL ")
+    public List<InventoryRecords>findAllByDateReturned();
     
     // @Transactional
     // @Modifying
