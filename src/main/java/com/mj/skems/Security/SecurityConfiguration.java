@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 //import net.javaguides.springboot.springsecurity.service.UserService;
@@ -30,6 +31,12 @@ public class SecurityConfiguration {
 	private String rolesQuery;
 
     @Bean
+public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+    return new MySimpleUrlAuthenticationSuccessHandler();
+}
+
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
@@ -46,6 +53,9 @@ public class SecurityConfiguration {
             .and()
             .formLogin()
             .loginPage("/login")
+            .loginProcessingUrl("/login")
+            // .defaultSuccessUrl("/index.html", true)
+            .successHandler(myAuthenticationSuccessHandler())
             .permitAll()
             .and()
             .logout()

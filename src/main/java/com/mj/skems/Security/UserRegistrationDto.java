@@ -1,7 +1,11 @@
 package com.mj.skems.Security;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 
 
@@ -39,10 +43,12 @@ public class UserRegistrationDto {
     @NotEmpty
     private String role;
 
-
-    private Long phoneNo;
+    @NotBlank
+    @Pattern(regexp="^[0][1|7]\\d{8}$" ,message="must start with 07/01 and be 10 digits")  
+    private String phoneNo;
 
     @NotEmpty
+    @Pattern(regexp = "^[A-Z]P?[0-9][0-9]\\/\\d{5}\\/[1|2][0-9]$",message = "use a valid regNo")
     private String regStaffNo;
 
     public String getFirstName() {
@@ -101,10 +107,10 @@ public class UserRegistrationDto {
     //     this.terms = terms;
     // }
 
-    public void setPhoneNo(Long phoneNo) {
+    public void setPhoneNo(String phoneNo) {
     this.phoneNo = phoneNo;
     }
-    public Long getPhoneNo() {
+    public String getPhoneNo() {
     return phoneNo;
     }
 

@@ -1,9 +1,9 @@
 package com.mj.skems.Security.model;
 
-import java.util.ArrayList;
+
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -17,9 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
+
 
 @Entity
 
@@ -30,11 +29,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    
     private String firstName;
+
+   
     private String lastName;
+
+    
     private String email;
     private String password;
-    private Long phoneNo;
+
+   
+    private String phoneNo;
+
+    
     private String regStaffNo;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -48,7 +56,7 @@ public class User {
 
     public User() {}
 
-    public User(String firstName, String lastName, String email, String password, Long phoneNo, String regStaffNo) {
+    public User(String firstName, String lastName, String email, String password, String phoneNo, String regStaffNo) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -57,7 +65,7 @@ public class User {
         this.regStaffNo = regStaffNo;
     }
 
-    public User(String firstName, String lastName, String email, String password, Collection < Role > roles,  Long phoneNo, String regStaffNo) {
+    public User(String firstName, String lastName, String email, String password, Collection < Role > roles,  String phoneNo, String regStaffNo) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -107,10 +115,10 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public void setPhoneNo(Long phoneNo) {
+    public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
     }
-    public Long getPhoneNo() {
+    public String getPhoneNo() {
         return phoneNo;
     }
 
