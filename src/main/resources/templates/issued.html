@@ -49,13 +49,23 @@
 
     <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpeg" style="margin-top:20px ; margin-bottom: 20px;"></div>
 
+
+    
     <div th:if="${ not#lists.isEmpty(inventoryRecords)}">
        
       <div class="container">
         <div class="row">
             <div class="col-lg-10 mt-5 mb-5">
+                
                 <table class="table table-sm table-bordered table-striped" style="width: 100%">
                     <h3 class="text-success">List of Issued Items</h3><br>
+                    <div class="input-group mb-3"> 
+                        
+                        <input type="text" name= "regNo"class="form-control input-text text-success " placeholder="Search by Reg. No." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-success btn-lg" type="submit"><i class="fa fa-search"></i></button>
+                        </div>
+                      </div>
               <h6>Click the Returned button if the Item has been returned.</h6>
                     <thead>
                         <tr>
