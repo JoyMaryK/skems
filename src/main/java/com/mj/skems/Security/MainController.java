@@ -21,6 +21,7 @@ import com.mj.skems.Inventory.InventoryService;
 import com.mj.skems.Security.model.User;
 import com.mj.skems.inventoryRecords.InventoryRecords;
 import com.mj.skems.inventoryRecords.InventoryRecordsService;
+import com.mj.skems.mail.SendMail;
 
 @Controller
 public class MainController {
@@ -31,6 +32,9 @@ public class MainController {
 
      @Autowired 
      InventoryService inventory_sService;
+
+     @Autowired
+     SendMail mail;
 
  @Autowired
  UserRepository userRepository;
@@ -97,12 +101,20 @@ public class MainController {
               
     public String saveBooking(@ModelAttribute("inventoryRecords") InventoryRecords inventoryRecords, Model model){
        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
               
         String item = inventoryRecords.getItem();
                String dateBooked = inventoryRecords.getDateBooked();
             model.addAttribute("item", item);
             model.addAttribute("dateBooked", dateBooked);
-            
+                //send email once item is booked
+
+                String content = "Hello "+ user.getFirstName() +", you have successfully booked a"+ item +" . Kindly pick it up within the next 24hrs.";
+            SendMail.send("joyskems@gmail.com","xeo cjac blqd ewqlt",
+            "joyskems@gmail.com","ITEM BOOKED",content);  
+
+
                     inventoryService.saveBooking(inventoryRecords);
                     return "redirect:index";
                 }
@@ -121,18 +133,27 @@ public class MainController {
        //get details of the logged in user to get the staff member's staff id
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
+
             String staffIssuedNames[] = {user.getFirstName().toString(),user.getLastName().toString()}; 
             String staffNamesCombined = staffIssuedNames[0] + staffIssuedNames[1];
 
         String regNo = inventoryRecords.getRegNo();
+        
         // String staffIssued = user.getRegStaffNo();
         String staffIssued = staffNamesCombined;
         String dateIssued = inventoryRecords.getDateIssued();
         long id = inventoryRecords.getId();
+        String item = inventoryRecords.getItem();
         model.addAttribute("dateIssued", dateIssued);
         model.addAttribute("staffIssued", staffIssued);
         model.addAttribute("regNo", regNo);
         model.addAttribute("id", id);
+        
+                
+        //send email once item is issued
+        String content = "Hello, "+"you have successfully been issued an item from the sports stores. Kindly ensure you return it to avoid consequences.";
+        SendMail.send("joyskems@gmail.com","xeo cjac blqd ewqlt",
+            "joyskems@gmail.com","ITEM ISSUED",content);
         
         inventoryService.saveIssuing(inventoryRecords, id);
 
