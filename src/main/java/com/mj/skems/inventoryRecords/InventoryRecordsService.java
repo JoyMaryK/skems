@@ -23,6 +23,7 @@ public class InventoryRecordsService {
     @Autowired 
     InventoryRecordsRepository inventoryRecordsRepository;
 
+
                             //  Booked list
     public List<InventoryRecords> listBookedRecords(){
 
@@ -39,6 +40,12 @@ public class InventoryRecordsService {
     public List<InventoryRecords> listIssuedRecords(){
 
         return inventoryRecordsRepository.findAllByDateIssued();
+    }
+
+    public List<InventoryRecords>  listIssuedRecordsForGraph(){
+        
+        return inventoryRecordsRepository.findAll();
+       
     }
         
                     //  save Issuing 

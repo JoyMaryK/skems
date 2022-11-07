@@ -32,4 +32,9 @@ public interface InventoryRecordsRepository extends JpaRepository<InventoryRecor
     @Query("SELECT r from InventoryRecords r where r.regNo =:regNo and r.dateReturned is NULL")
     public Optional<InventoryRecords>findAllIssuedByRegNo(@Param(value="regNo" )String regNo);
 
+    @Query("SELECT r from InventoryRecords r where r.item =:item and r.dateIssued is NOT NULL")
+    public List<InventoryRecords> findAllByItem(@Param(value="item") String item);
+   
+    @Query("select distinct item from InventoryRecords")
+    public List<Object[]> findDistinctItems();
 }

@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Issued List</title>
+    <title>Homepage</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="fontawesome/css/all.min.css">
     <link rel="stylesheet" href="css/templatemo-style.css">
 
 </head>
 <body>
+    <form th:action="@{/user}" th:object="${user}" method="get">
     <!-- Page Loader -->
     <div id="loader-wrapper">
         <div id="loader"></div>
@@ -18,92 +19,78 @@
         <div class="loader-section section-right"></div>
 
     </div>
-    <nav class="navbar navbar-expand-lg">
+    <nav class=" navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand text-success" th:href="@{/index}">
-                <i class="fas fa-table-tennis text-success"></i>
-                Sports Stores
+            <a class="navbar-brand text-success" th:href="@{/}">
+                <i class="fas fa-basketball-ball mr-2 text-success "></i>
+                E.U Sports Stores 
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-3 active" aria-current="page" th:href="@{/}">Home</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link nav-link-2" href="videos.html">Videos</a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link nav-link-2" th:href="@{/about}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-1" th:href="@{/contact}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-4" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
+                </li>
                 
-                <li class="nav-item">
-                    <a class="nav-link nav-link-3 "  th:href="@{/booked}">Booked</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-3 active" aria-current="page" th:href="@{/issued}">Issued</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-2" th:href="@{/records}">Records</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-3" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
-                </li>
             </ul>
             </div>
         </div>
     </nav>
 
-    <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpeg" style="margin-top:20px ; margin-bottom: 20px;"></div>
+    <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpeg" style="margin-top:20px ; ">
+        <form class="form-inline my-2 my-lg-0">
+            <!-- <input class="form-control mr-sm-2 text-success" type="search" placeholder="Search" aria-label="Search"> -->
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+    </div>
 
-
-    
-    <div th:if="${ not#lists.isEmpty(inventoryRecords)}">
-       
-      <div class="container">
+  
+    <div class="container">
         <div class="row">
             <div class="col-lg-10 mt-5 mb-5">
-                
-                <table class="table table-sm table-bordered table-striped" style="width: 100%">
-                    <h3 class="text-success">Sports Store Inventory</h3><br>
-                    <div class="input-group mb-3"> 
-                        
-                       
-    
-                      </div>
-              <h6></h6>
+         
+    <table class="table-sm table-bordered table-striped" style="width: 100%">
+        <h3 class="text-success">Sports Items List</h3><br>
+        <h6>Click the Edit button to change number of totals.</h6>
                     <thead>
                         <tr>
                             <th class="text-success">Sport Item</th>
-                            <th class="text-success">Booked </th>
-                            <th class="text-success">Issued </th>
+                            <th class="text-success">Booked</th>
+                            <th class="text-success">Issued</th>
                             <th class="text-success">Available</th>
                             <th class="text-success">Total</th>
-                          
-                            
-                          </tr>
+                        </tr>
                     </thead>
-                    <tbody>
-                        <div th:if="${param.error}">
-                            <div class="alert alert-danger">Invalid.
-                            </div>
-                        </div>
-                        <tr th:each="inventory: ${inventory}">
-                            <form action="#" th:action="@{/returned}" th:object="${inventoryRecords}" method="post">
-                            <td th:text="${inventoryRecord.firstName}"></td>
-                           
-                            <td th:text="${inventoryRecord.regNo}"></td>
-                            <td th:text="${inventoryRecord.item}"></td>
-                            <td th:text="${inventoryRecord.staffIssued}"></td>
-                            <td th:text="${inventoryRecord.dateIssued}"></td>        
-                            
-                                <td><input type="hidden" th:value="${inventoryRecord.id}" name="id"></td>           
-                            <td><input type="hidden" th:value="${inventoryRecord.regNo}" name="regNo"/>
-                                <button type="submit" class="btn btn-outline-success"  > </button></td>
-                            </form>
-                          </tr>
+        <tr th:each="inventoris : ${inventory}">
+            <td th:text="${inventoris.sport_item}"></td>
+            <td th:text="${inventoris.bookedNo}"></td>
+            <td th:text="${inventoris.issuedNo}"></td>
+            <td th:text="${inventoris.available}"></td>
+            <td th:text="${inventoris.totalNo}"></td>
                         
-                    </tbody>
-                </table>
-    
-              
-            </div>
-        </div>
+                           
+        </tr>
+    </table>
     </div>
     </div>
+    </div>
+   
+     
+</form>
     <footer class="tm-bg-gray pt-5 pb-3 tm-text-gray tm-footer">
         <div class="container-fluid tm-container-small">
             <div class="row">
@@ -132,17 +119,24 @@
                 </div>
             </div>
             <div class="row">
-                <div class="text-success col-lg-8 col-md-7 col-12 px-5 mb-3">
+                <div class="col-lg-8 col-md-7 col-12 px-5 mb-3">
                     Copyright 2022 Egerton University. All rights reserved.
                 </div>
                
             </div>
         </div>
+      
     </footer>
     
     <script src="js/plugins.js"></script>
     <script>
-       
+        $(window).on("load", function() {
+            $('body').addClass('loaded');
+        });
+
+        
     </script>
+
+
 </body>
 </html>

@@ -2,6 +2,9 @@ package com.mj.skems.Security;
 
 
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.Authentication;
@@ -196,6 +199,23 @@ public class MainController {
         return"records";
     }
 
+    @GetMapping("/items")
+    public String allItems(Model model){
+        model.addAttribute("inventory",inventory_sService.listInventory() );
+        return"items";
+    }
+
+    @GetMapping("/barChart")
+	public String getRecordGraph(Model model) {	
+		
+    List<String> sportNameList= inventoryService.listIssuedRecordsForGraph().stream().map(x->x.getItem()).collect(Collectors.toList());
+    List<String> sportIssuedList= inventoryService.listIssuedRecords().stream().map(x->x.getDateIssued()).collect(Collectors.toList());
+    
+	model.addAttribute("name", sportNameList);
+	model.addAttribute("age", sportIssuedList);
+	return "barChart";
+	
+	}
 }
   
         

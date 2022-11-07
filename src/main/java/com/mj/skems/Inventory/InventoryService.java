@@ -1,5 +1,6 @@
 package com.mj.skems.Inventory;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,10 @@ public class InventoryService {
     
    public List<InventoryModel> listInventory(){
         return inventoryRepository.findAll();
-    };
+    }
+
+
+;
     
   
     
