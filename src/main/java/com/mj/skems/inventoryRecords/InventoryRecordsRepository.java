@@ -37,4 +37,7 @@ public interface InventoryRecordsRepository extends JpaRepository<InventoryRecor
    
     @Query("select distinct item from InventoryRecords")
     public List<Object[]> findDistinctItems();
+
+    @Query("select  count(*) from InventoryRecords a where a.item =:item and a.dateReturned is null and a.dateIssued is not null")
+    public Integer noOfIssued(@Param(value = "item")String item );
 }

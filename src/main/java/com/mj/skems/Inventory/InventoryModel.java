@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
+@DynamicUpdate
 public class InventoryModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +36,7 @@ public class InventoryModel {
 	private String sport_name;
 
     @Column(name = "sport_item", nullable = false)
-	private String sport_item;
+	private String sportItem;
 
     @Lob
     @Column(name = "Image", length = Integer.MAX_VALUE, nullable = true)

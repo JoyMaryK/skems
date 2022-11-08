@@ -65,25 +65,33 @@
          
     <table class="table-sm table-bordered table-striped" style="width: 100%">
         <h3 class="text-success">Sports Items List</h3><br>
-        <h6>Click the Edit button to change number of totals.</h6>
+       
+        
+            <h6>Click the Edit button to change number of totals.
+               </h6>
                     <thead>
                         <tr>
                             <th class="text-success">Sport Item</th>
                             <th class="text-success">Booked</th>
                             <th class="text-success">Issued</th>
                             <th class="text-success">Available</th>
-                            <th class="text-success">Total</th>
+                            <th class="text-success">Total </th>
+                            <th class="text-success">Edit </th>
                         </tr>
                     </thead>
         <tr th:each="inventoris : ${inventory}">
-            <td th:text="${inventoris.sport_item}"></td>
+            <form action="#" th:action="@{/totals}" th:object="${inventory}" method="post">
+            <td th:text="${inventoris.sportItem}"></td>
             <td th:text="${inventoris.bookedNo}"></td>
             <td th:text="${inventoris.issuedNo}"></td>
             <td th:text="${inventoris.available}"></td>
-            <td th:text="${inventoris.totalNo}"></td>
-                        
-                           
+            <td ><input  type="number" th:value="${inventoris.totalNo}" name="totalNo" ></td>
+            <input type="hidden" th:value="${inventoris.id}" name="id"/> 
+              <td><button type="submit" class="btn btn-outline-success">EDIT</button> </td>  
+            </form>                
         </tr>
+            
+      
     </table>
     </div>
     </div>

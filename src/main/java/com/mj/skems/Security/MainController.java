@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
-
+import com.mj.skems.Inventory.InventoryModel;
 import com.mj.skems.Inventory.InventoryService;
 import com.mj.skems.Security.model.User;
 import com.mj.skems.inventoryRecords.InventoryRecords;
@@ -111,11 +111,12 @@ public class MainController {
                String dateBooked = inventoryRecords.getDateBooked();
             model.addAttribute("item", item);
             model.addAttribute("dateBooked", dateBooked);
+        String email = user.getEmail();
                 //send email once item is booked
 
                 String content = "Hello "+ user.getFirstName() +", you have successfully booked a"+ item +" . Kindly pick it up within the next 24hrs.";
             SendMail.send("joyskems@gmail.com","xeo cjac blqd ewqlt",
-            "joyskems@gmail.com","ITEM BOOKED",content);  
+            email,"ITEM BOOKED",content);  
 
 
                     inventoryService.saveBooking(inventoryRecords);
@@ -216,6 +217,24 @@ public class MainController {
 	return "barChart";
 	
 	}
+
+    @PostMapping("/totals")
+              
+    public String saveNewTotals(@ModelAttribute("inventory") InventoryModel inventoryModel, Model model){
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
+
+
+        Integer total = inventoryModel.getTotalNo();
+        Long id = inventoryModel.getId();
+        String item = inventoryModel.getSportItem();
+            model.addAttribute("totalNo", total);
+            model.addAttribute("item", item);
+
+                    inventory_sService.updateTotals(inventoryModel, id);
+                    return "redirect:items";
+                }
 }
   
         
