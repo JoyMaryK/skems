@@ -9,6 +9,7 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +25,8 @@ import lombok.Setter;
 @Getter
 @Setter
 
-@DynamicUpdate
+//@DynamicUpdate
+@Component
 public class InventoryModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

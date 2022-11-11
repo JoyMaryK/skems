@@ -2,6 +2,7 @@ package com.mj.skems.Inventory;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,11 +36,25 @@ public class InventoryService {
     
     public InventoryModel updateTotals(InventoryModel inventory,Long id){
        
+       
         InventoryModel imodel = inventoryRepository.findById(id).get();
         imodel.setTotalNo(inventory.getTotalNo()) ;
-        
+       
         return inventoryRepository.save(imodel);
     }
   
+    public InventoryModel updateBooked(InventoryModel inventory,Long id){
+       
+        InventoryModel imodel = inventoryRepository.findById(id).get();
+        imodel.setBookedNo(inventory.getBookedNo() + 1) ;
+        imodel.setBookedNo(inventory.getAvailable() - 1) ;
+        return inventoryRepository.save(imodel);
+    }
+
+
+    public Optional<InventoryModel> findById(Long id) {
+        return inventoryRepository.findById(id);
+    }
     
+
 }

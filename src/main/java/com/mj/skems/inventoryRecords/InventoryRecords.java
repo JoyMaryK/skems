@@ -40,7 +40,7 @@ public class InventoryRecords {
     private String staffReurned;
     private String firstName;
     private String lastName;
-
+    private Long ItemId;
     
 
 

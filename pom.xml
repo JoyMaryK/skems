@@ -50,6 +50,18 @@
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
     		<version>1.5.0-b01</version>
+		</dependency>
+		<dependency>
+    		<groupId>com.github.librepdf</groupId>
+    		<artifactId>openpdf</artifactId>
+    		<version>1.3.30</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
+<dependency>
+    <groupId>com.lowagie</groupId>
+    <artifactId>itext</artifactId>
+    <version>4.2.2</version>
+    <type>pom</type>
 </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

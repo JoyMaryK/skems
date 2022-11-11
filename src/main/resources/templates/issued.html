@@ -58,7 +58,10 @@
             <div class="col-lg-10 mt-5 mb-5">
                 
                 <table class="table table-sm table-bordered table-striped" style="width: 100%">
-                    <h3 class="text-success">List of Issued Items</h3><br>
+                    <h3 class="text-success">List of Issued Items
+                        <a class="btn btn-success btn-sm" style="margin-left: 35rem;" aria-current="page" th:href="@{/pdf}">
+                         SAVE LIST   <i class="fas fa-file-download"></i></a></h6>
+                    </h3><br>
                     <div class="input-group mb-3"> 
                         
                         <input type="text" name= "regNo"class="form-control input-text text-success " placeholder="Search by Reg. No." aria-label="Recipient's username" aria-describedby="basic-addon2">
@@ -66,7 +69,9 @@
                           <button class="btn btn-outline-success btn-lg" type="submit"><i class="fa fa-search"></i></button>
                         </div>
                       </div>
-              <h6>Click the Returned button if the Item has been returned.</h6>
+              <h6>Click the Returned button if the Item has been returned.
+                
+              
                     <thead>
                         <tr>
                             <th class="text-success">Student Name</th>

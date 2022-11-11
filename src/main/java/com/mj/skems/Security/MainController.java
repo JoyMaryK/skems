@@ -2,8 +2,15 @@ package com.mj.skems.Security;
 
 
 
+import java.io.IOException;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,7 +26,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.lowagie.text.DocumentException;
+import com.mj.ToPDF.Pdf;
 import com.mj.skems.Inventory.InventoryModel;
+import com.mj.skems.Inventory.InventoryRepository;
 import com.mj.skems.Inventory.InventoryService;
 import com.mj.skems.Security.model.User;
 import com.mj.skems.inventoryRecords.InventoryRecords;
@@ -41,6 +51,9 @@ public class MainController {
 
  @Autowired
  UserRepository userRepository;
+
+ @Autowired
+ InventoryRepository inventoryRepository;
     @GetMapping("/")
     public String root(@AuthenticationPrincipal ShopMeUserDetails userDetails,
                                 Model model) {
@@ -102,27 +115,39 @@ public class MainController {
 
     @PostMapping("/book")
               
-    public String saveBooking(@ModelAttribute("inventoryRecords") InventoryRecords inventoryRecords, Model model){
+    public String saveBooking(@ModelAttribute("inventoryRecords")  InventoryRecords inventoryRecords,  Model model){
        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
               
+        
+
         String item = inventoryRecords.getItem();
-               String dateBooked = inventoryRecords.getDateBooked();
+        Long id = inventoryRecords.getId();
+        String dateBooked = inventoryRecords.getDateBooked();
             model.addAttribute("item", item);
             model.addAttribute("dateBooked", dateBooked);
-        String email = user.getEmail();
-                //send email once item is booked
+            model.addAttribute("id", id);
+        
 
-                String content = "Hello "+ user.getFirstName() +", you have successfully booked a"+ item +" . Kindly pick it up within the next 24hrs.";
-            SendMail.send("joyskems@gmail.com","xeo cjac blqd ewqlt",
+            InventoryModel inventoryModel = inventory_sService.findById(id).get();
+            if (inventoryModel != null){ 
+                InventoryModel imodel = inventoryRepository.findById(id).get();
+                imodel.setBookedNo(inventoryModel.getBookedNo() + 1) ;
+                imodel.setAvailable(inventoryModel.getAvailable() - 1) ;
+                 inventoryRepository.save(imodel);}
+           
+            //send email once item is booked
+            String email = user.getEmail();
+            String content = "Hello "+ user.getFirstName() +", you have successfully booked a "+ id +" .Kindly pick it up within the next 24hrs. Carry your school ID Card";
+            SendMail.send("joyskems@gmail.com","eilb pscg pnpz spjw",
             email,"ITEM BOOKED",content);  
 
-
-                    inventoryService.saveBooking(inventoryRecords);
+                    inventoryService.saveBooking(inventoryRecords, id);
                     return "redirect:index";
                 }
 
+           
 
 
     @GetMapping("/booked")
@@ -218,8 +243,7 @@ public class MainController {
 	
 	}
 
-    @PostMapping("/totals")
-              
+    @PostMapping("/totals")          
     public String saveNewTotals(@ModelAttribute("inventory") InventoryModel inventoryModel, Model model){
         // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -234,6 +258,26 @@ public class MainController {
 
                     inventory_sService.updateTotals(inventoryModel, id);
                     return "redirect:items";
+                }
+               
+    
+                @GetMapping("/pdf")
+                public void  Pdf(HttpServletResponse response) throws DocumentException, IOException {
+                    response.setContentType("application/pdf");
+                    DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+                    String currentDateTime = dateFormatter.format(new Date());
+                     
+                    String headerKey = "Content-Disposition";
+                    String headerValue = "Content-Disposition; filename=defaulters_" + currentDateTime + ".pdf";
+                    response.setHeader(headerKey, headerValue);
+                     
+                    List<InventoryRecords> listUsers = inventoryService.listIssuedRecords();
+                     
+                    Pdf exporter = new Pdf(listUsers);
+                    exporter.export(response);
+                    
+    
+                     
                 }
 }
   

@@ -13,4 +13,6 @@ public interface InventoryRepository extends JpaRepository<InventoryModel, Long>
     
     
     public InventoryModel findBySportItem(String item);
+
+    
 }

@@ -95,8 +95,15 @@
                                         <div class="modal-body">
                                             <form th:action="@{/book}" th:object="${inventoryRecords}" method="post">                          
                                                 
-                                                <input type="text" th:value="${inventoris.sport_item}"  th:text="${inventoris.sport_item}" 
+                                                <input type="text" th:value="${inventoris.sportItem}"  th:text="${inventoris.sportItem}" 
                                                  readonly name="item" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"><br>
+                                                 <div th:action="@{/book}" th:object="${inventory}" method="post"> 
+                                                    <input type="hidden" th:value="${inventoris.id}"  name="id"/></div>
+                                                   
+                                                    
+                                                 
+                                                 
+                                                 
                                                 <input type="date" placeholder="yyyy-mm-dd" value=""
                                                 min="1997-01-01" max="2030-12-31" style="margin-bottom: 15px;" name="dateBooked"
                                                 class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"><br>
