@@ -7,7 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,7 +40,11 @@ public class InventoryRecords {
     private String dateIssued;
     private String dateReturned;
    // private Date dateCreated;
+
+  @NotNull
+   //@Pattern(regexp = "(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((?:19|20)[0-9][0-9])",message = "use the calender to pick a date")
     private String dateBooked;
+
     private String staffIssued;
     private String staffReurned;
     private String firstName;

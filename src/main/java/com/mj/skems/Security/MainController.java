@@ -129,7 +129,7 @@ public class MainController {
             model.addAttribute("dateBooked", dateBooked);
             model.addAttribute("id", id);
         
-
+                //change data on Inventory
             InventoryModel inventoryModel = inventory_sService.findById(id).get();
             if (inventoryModel != null){ 
                 InventoryModel imodel = inventoryRepository.findById(id).get();
@@ -177,11 +177,18 @@ public class MainController {
         model.addAttribute("staffIssued", staffIssued);
         model.addAttribute("regNo", regNo);
         model.addAttribute("id", id);
-        
+        model.addAttribute("item", item);
+        //edit data on Inventory once issued
+           InventoryModel inventoryModel = inventory_sService.findByItem(item);
+           if (inventoryModel != null){ 
+               InventoryModel imodel = inventoryRepository.findBySportItem(item);
+               imodel.setBookedNo(inventoryModel.getBookedNo() - 1) ;
+               imodel.setIssuedNo(inventoryModel.getIssuedNo() + 1) ;
+                inventoryRepository.save(imodel);}
                 
         //send email once item is issued
         String content = "Hello, "+"you have successfully been issued an item from the sports stores. Kindly ensure you return it to avoid consequences.";
-        SendMail.send("joyskems@gmail.com","xeo cjac blqd ewqlt",
+        SendMail.send("joyskems@gmail.com","eilb pscg pnpz spjw",
             "joyskems@gmail.com","ITEM ISSUED",content);
         
         inventoryService.saveIssuing(inventoryRecords, id);
@@ -234,8 +241,8 @@ public class MainController {
     @GetMapping("/barChart")
 	public String getRecordGraph(Model model) {	
 		
-    List<String> sportNameList= inventoryService.listIssuedRecordsForGraph().stream().map(x->x.getItem()).collect(Collectors.toList());
-    List<String> sportIssuedList= inventoryService.listIssuedRecords().stream().map(x->x.getDateIssued()).collect(Collectors.toList());
+    List<String> sportNameList= inventory_sService.listSportItemsForGraph().stream().map(x->x.getSportItem()).collect(Collectors.toList());
+    List<Integer> sportIssuedList= inventory_sService.listSportItemsForGraph().stream().map(x->x.getIssuedNo()).collect(Collectors.toList());
     
 	model.addAttribute("name", sportNameList);
 	model.addAttribute("age", sportIssuedList);

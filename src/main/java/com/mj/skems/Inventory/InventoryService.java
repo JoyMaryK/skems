@@ -55,6 +55,13 @@ public class InventoryService {
     public Optional<InventoryModel> findById(Long id) {
         return inventoryRepository.findById(id);
     }
+
+    public InventoryModel findByItem(String item) {
+        return inventoryRepository.findBySportItem(item);
+    }
+    public Collection<InventoryModel> listSportItemsForGraph() {
+        return inventoryRepository.findAll();
+    }
     
 
 }

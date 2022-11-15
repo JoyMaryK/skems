@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="fontawesome/css/all.min.css">
     <link rel="stylesheet" href="css/templatemo-style.css">
-
+    
 </head>
 <body>
     <form th:action="@{/user}" th:object="${user}" method="get">
@@ -92,9 +92,10 @@
                                             <span aria-hidden="true">&times;</span>
                                           </button>
                                         </div>
-                                        <div class="modal-body">
+                                        <div class="modal-body" th:with="date=${#dates.format(#dates.createNow(),'MM/dd/YYYY ')}">
                                             <form th:action="@{/book}" th:object="${inventoryRecords}" method="post">                          
                                                 
+                                               
                                                 <input type="text" th:value="${inventoris.sportItem}"  th:text="${inventoris.sportItem}" 
                                                  readonly name="item" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"><br>
                                                  <div th:action="@{/book}" th:object="${inventory}" method="post"> 
@@ -102,11 +103,11 @@
                                                    
                                                     
                                                  
+                                                 <p th:text="${date}"></p>
                                                  
-                                                 
-                                                <input type="date" placeholder="yyyy-mm-dd" value=""
+                                                 <input type="date"  class="form-control"  id="datePicker"
                                                 min="1997-01-01" max="2030-12-31" style="margin-bottom: 15px;" name="dateBooked"
-                                                class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"><br>
+                                                 aria-label="Small" aria-describedby="inputGroup-sizing-sm"><br>
                                                 
                                                
                                                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" style="border-radius: 10%;">Close</button>
@@ -176,10 +177,14 @@
         $(window).on("load", function() {
             $('body').addClass('loaded');
         });
-
+        
         
     </script>
 
-
+<script type="text/javascript">
+   $('#datePicker').datepicker({
+                    format:'mm/dd/yyyy',
+                }).datepicker("setDate",'now');
+  </script>
 </body>
 </html>
