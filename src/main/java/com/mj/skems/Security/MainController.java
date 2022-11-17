@@ -184,7 +184,7 @@ public class MainController {
                InventoryModel imodel = inventoryRepository.findBySportItem(item);
                imodel.setBookedNo(inventoryModel.getBookedNo() - 1) ;
                imodel.setIssuedNo(inventoryModel.getIssuedNo() + 1) ;
-                inventoryRepository.save(imodel);}
+                inventoryRepository.save(imodel);
                 
         //send email once item is issued
         String content = "Hello, "+"you have successfully been issued an item from the sports stores. Kindly ensure you return it to avoid consequences.";
@@ -192,7 +192,8 @@ public class MainController {
             "joyskems@gmail.com","ITEM ISSUED",content);
         
         inventoryService.saveIssuing(inventoryRecords, id);
-
+           }
+           
        return "redirect:booked" ;
        
     }
@@ -256,14 +257,16 @@ public class MainController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
 
-
+            
         Integer total = inventoryModel.getTotalNo();
         Long id = inventoryModel.getId();
         String item = inventoryModel.getSportItem();
             model.addAttribute("totalNo", total);
             model.addAttribute("item", item);
 
-                    inventory_sService.updateTotals(inventoryModel, id);
+         
+
+                    inventory_sService.updateTotals(inventoryModel, id, item);
                     return "redirect:items";
                 }
                

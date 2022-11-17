@@ -34,13 +34,34 @@ public class InventoryService {
 
     }
     
-    public InventoryModel updateTotals(InventoryModel inventory,Long id){
+    public InventoryModel updateTotals(InventoryModel inventory,Long id, String item){
        
+        Integer difference;
+        InventoryModel iModel = inventoryRepository.findById(id).get();
+        Integer oldTotalNo = iModel.getTotalNo();
+        Integer total = inventory.getTotalNo();
+        InventoryModel inventoryModel;
        
-        InventoryModel imodel = inventoryRepository.findById(id).get();
-        imodel.setTotalNo(inventory.getTotalNo()) ;
+        
+                //inventoryModel = inventoryRepository.findById(id).get();
+               // if (iModel != null){ 
+                    
+                    if (total>oldTotalNo){
+                        difference = total - oldTotalNo;
+                    iModel.setAvailable(iModel.getAvailable() + difference) ;
+                    iModel.setTotalNo(total) ;
+                     }
+               
+            else if (total<oldTotalNo){
+               difference = oldTotalNo - total;
+             
+                    iModel.setAvailable(iModel.getAvailable() - difference) ;
+                    iModel.setTotalNo(total) ;
+                   // }
+                        }
+                
        
-        return inventoryRepository.save(imodel);
+        return inventoryRepository.save(iModel);
     }
   
     public InventoryModel updateBooked(InventoryModel inventory,Long id){
@@ -54,6 +75,9 @@ public class InventoryService {
 
     public Optional<InventoryModel> findById(Long id) {
         return inventoryRepository.findById(id);
+    }
+    public Integer findOldTotalNo(Long id) {
+        return inventoryRepository.findOldTotalNo(id);
     }
 
     public InventoryModel findByItem(String item) {

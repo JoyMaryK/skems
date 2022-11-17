@@ -20,7 +20,7 @@
     </div>
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand text-success" th:href="@{/index}">
+            <a class="navbar-brand text-success" >
                 <i class="fas fa-table-tennis text-success"></i>
                 Sports Stores
             </a>
@@ -29,16 +29,22 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+              
+                <li class="nav-item">
+                    <a class="nav-link nav-link-2 " th:href="@{/booked}">Booked</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-4 active" aria-current="page" th:href="@{/issued}">Issued</a>
+                </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link nav-link-3 "  th:href="@{/booked}">Booked</a>
+                    <a class="nav-link nav-link-3" th:href="@{/barChart}">Graphs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-3 active" aria-current="page" th:href="@{/issued}">Issued</a>
+                    <a class="nav-link nav-link-3" th:href="@{/items}">Items</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-2" th:href="@{/records}">Records</a>
-                </li>
+                
+                
                 <li class="nav-item">
                     <a class="nav-link nav-link-3" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
                 </li>
@@ -46,7 +52,6 @@
             </div>
         </div>
     </nav>
-
     <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpeg" style="margin-top:20px ; margin-bottom: 20px;"></div>
 
 

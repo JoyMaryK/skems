@@ -2,15 +2,48 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<title>Graphs</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="css/templatemo-style.css">
 
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
 
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand text-success" >
+                <i class="fas fa-table-tennis text-success"></i>
+                Sports Stores
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+              
+                <li class="nav-item">
+                    <a class="nav-link nav-link-2 " th:href="@{/booked}">Booked</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-4 " th:href="@{/issued}">Issued</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link nav-link-1 active" aria-current="page" th:href="@{/barChart}">Graphs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-5 " th:href="@{/items}">Items</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="nav-link nav-link-2" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+    </nav>
 	<div class="container">
 		<h2 align="center">Data Graph</h2>
 
@@ -34,10 +67,10 @@
             type: 'column'
         },
         title: {
-            text: 'Organization'
+            text: 'Egerton University'
         },
         subtitle: {
-            text: 'Details'
+            text: 'Issued Items Distribution Chart'
         },
         xAxis: {
             categories: [[${name}]],
@@ -47,13 +80,13 @@
             min: 0,
             max:100,
             title: {
-                text: 'Age'
+                text: 'No. Issued'
             }
         },
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
             pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} K</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
             footerFormat: '</table>',
             shared: true,
             useHTML: true
@@ -65,7 +98,7 @@
             }
         },
         series: [{
-            name: 'Name',
+            name: 'Item ',
             data: [[${age}]]
         }]
       });

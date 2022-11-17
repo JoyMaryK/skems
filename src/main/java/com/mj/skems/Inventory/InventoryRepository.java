@@ -14,5 +14,6 @@ public interface InventoryRepository extends JpaRepository<InventoryModel, Long>
     
     public InventoryModel findBySportItem(String item);
 
-    
+    @Query("SELECT totalNo from InventoryModel r where r.id =:id ")
+    public Integer findOldTotalNo(@Param(value="id" )Long id);
 }
