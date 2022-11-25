@@ -67,7 +67,52 @@
             <div class="col-lg-10 mt-5 mb-5">
          
     <table class="table-sm table-bordered table-striped" style="width: 100%">
-        <h3 class="text-success">Sports Items List</h3><br>
+        <div style="width: 100%" >
+            <h3 class="text-success"  >Sports Items List
+                <a class="btn btn-success btn-sm" style="float: right;"
+                aria-current="page"  data-toggle="modal" data-target="#exampleModalCenter" >
+                    ADD NEW   <i class="fas fa-plus"></i></a>
+               </h3>
+               <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalCenterTitle">Item Details</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <form th:action="@{/item}" th:object="${inventoryModel}" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Sport Name</label>
+                              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Sport Name" name="name"> 
+                            </div>
+                            <div class="form-group">
+                                <label for="item">Item</label>
+                                <input type="text" class="form-control" id="item" aria-describedby="emailHelp" placeholder="Enter Item Name" name="item"> 
+                              </div>
+                              <div class="form-group">
+                                <label for="total">Total Number of Items</label>
+                                <input type="number" class="form-control" id="total" aria-describedby="emailHelp" placeholder="Enter Number of Items" name="total"> 
+                              </div>
+                              <div class="form-group">
+                                <label for="file">Image</label>
+                                <input type="file" class="form-control" id="file" aria-describedby="emailHelp" placeholder="Select File" name="file"> 
+                              </div>
+                         
+                    
+                   
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-success">Save</button>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+       
+        <br>
        
         
             <h6>Click the Edit button to change number of totals.

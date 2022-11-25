@@ -54,7 +54,12 @@
     </nav>
     <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpeg" style="margin-top:20px ; margin-bottom: 20px;"></div>
 
-
+    <div th:if="${ #lists.isEmpty(inventoryRecords)}">
+        <h4 class="text-success">Looks like there's no unreturned item</h4>
+        
+        <!-- <button type="button" class="btn btn-outline-success">ADD NEW</button> -->
+    
+        </div>
     
     <div th:if="${ not#lists.isEmpty(inventoryRecords)}">
        
@@ -63,20 +68,23 @@
             <div class="col-lg-10 mt-5 mb-5">
                 
                 <table class="table table-sm table-bordered table-striped" style="width: 100%">
-                    <h3 class="text-success">List of Issued Items
-                        <a class="btn btn-success btn-sm" style="margin-left: 35rem;" aria-current="page" th:href="@{/pdf}">
-                         SAVE LIST   <i class="fas fa-file-download"></i></a></h6>
-                    </h3><br>
+                    <div>
+                        <h3 class="text-success">List of Issued Items
+                            <a class="btn btn-success btn-sm" style="float: right;" aria-current="page" th:href="@{/pdf}">
+                             SAVE LIST   <i class="fas fa-file-download"></i></a></h6>
+                        </h3>
+                    </div>
+                    <br>
                     <div class="input-group mb-3"> 
                         
                         <input type="text" name= "regNo"class="form-control input-text text-success " placeholder="Search by Reg. No." aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">
                           <button class="btn btn-outline-success btn-lg" type="submit"><i class="fa fa-search"></i></button>
                         </div>
-                      </div>
+                    </div>
               <h6>Click the Returned button if the Item has been returned.
                 
-              
+              </h6>
                     <thead>
                         <tr>
                             <th class="text-success">Student Name</th>
@@ -117,7 +125,7 @@
                             </td>     
                                 <td><input type="hidden" th:value="${inventoryRecord.id}" name="id"></td>           
                             <td><input type="hidden" th:value="${inventoryRecord.regNo}" name="regNo"/>
-                                <input type="hidden" th:value="${inventoryRecord.item}" name="item"/>
+                               
                                 <button type="submit" class="btn btn-outline-success"  onclick="validate()">Returned</button></td>
                             </form>
                           </tr>
@@ -161,9 +169,7 @@
                 <div class="text-success col-lg-8 col-md-7 col-12 px-5 mb-3">
                     Copyright 2022 Egerton University. All rights reserved.
                 </div>
-                <!-- <div class="col-lg-4 col-md-5 col-12 px-5 text-right">
-                    Designed by <a href="https://templatemo.com" class="tm-text-gray" rel="sponsored" target="_parent">TemplateMo</a>
-                </div> -->
+                
             </div>
         </div>
     </footer>

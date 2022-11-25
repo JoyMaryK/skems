@@ -33,6 +33,9 @@
                 <li class="nav-item">
                     <a class="nav-link nav-link-3 active" aria-current="page" th:href="@{/}">Home</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-2" th:href="@{/index2}">About</a>
+                </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link nav-link-2" href="videos.html">Videos</a>
                 </li> -->
@@ -63,23 +66,24 @@
             <h2 class="col-6 text-success">
                 Sport Items 
             </h2> 
-            <div class="col-6 d-flex justify-content-end align-items-center">
+            <!-- <div class="col-6 d-flex justify-content-end align-items-center">
                 <form action="" class="text-success">
                     Page <input type="text" value="1" size="1" class="tm-input-paging tm-text-primary"> of 200
                 </form>
-            </div>
+            </div> -->
         </div>
     </div>
-    
-         
-    <table style="width: 100%; margin-left: 20%;">
+
+    <div >
+       <table style="width: 100%; margin-left: 20%;">
         <tr th:each="inventoris : ${inventory}">
             <div class="card custom-card mr-2 mt-2 ml-2 mb-2"
-                    style="width: 18rem; display: inline-block; ">
+                    style="width: 20rem; display: inline-block; ">
                   
-                    <div class="card" style="width: 18rem;  ">
+                    <div class="card" style="width: 20rem;  ">
                         <figure class="effect-ming tm-video-item">
-                            <img src="img/football.jpeg" alt="Image" class="img-fluid">
+                            <!-- <img th:src="@{'data:image/jpeg;base64,'+${inventoris.image}}"  alt="Image" class="img-fluid"> -->
+                            <img th:src="${inventoris.image} == null ? _ : @{'data:image/jpeg;base64,'+${inventoris.image}}">
                             <figcaption class="d-flex align-items-center justify-content-center" >
                                 <h2 th:text="${inventoris.sport_name}"></h2>
                                 <a  data-toggle="modal" data-target="#exampleModal1" th:attrappend="data-target=${inventoris.id}"data-whatever="soccer ball">View more</a>
@@ -131,10 +135,11 @@
                      
                 </div>
         </tr>
-    </table>
+        </table>
    
      
-</form>
+        </form>
+</div>
     <footer class="tm-bg-gray pt-5 pb-3 tm-text-gray tm-footer">
         <div class="container-fluid tm-container-small">
             <div class="row">

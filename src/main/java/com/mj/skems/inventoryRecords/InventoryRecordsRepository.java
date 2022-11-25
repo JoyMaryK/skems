@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface InventoryRecordsRepository extends JpaRepository<InventoryRecords, Long> {
   
-
+     List<InventoryRecords> findByRegNoEquals(String regNo);
 
     @Query("SELECT c FROM InventoryRecords c WHERE c.dateIssued IS NOT NULL and c.dateReturned is null")
     public List<InventoryRecords>findAllByDateIssued( );

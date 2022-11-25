@@ -2,13 +2,20 @@ package com.mj.skems.Security;
 
 
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
+import java.io.InputStream;
+import java.net.http.HttpClient.Redirect;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.zip.DataFormatException;
+import java.util.zip.Inflater;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,11 +30,17 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
+import org.thymeleaf.util.StringUtils;
 
 import com.lowagie.text.DocumentException;
 import com.mj.ToPDF.Pdf;
+import com.mj.skems.Inventory.FileUploadUtil;
+import com.mj.skems.Inventory.ImgUtil;
 import com.mj.skems.Inventory.InventoryModel;
 import com.mj.skems.Inventory.InventoryRepository;
 import com.mj.skems.Inventory.InventoryService;
@@ -55,17 +68,21 @@ public class MainController {
  @Autowired
  InventoryRepository inventoryRepository;
     @GetMapping("/")
-    public String root(@AuthenticationPrincipal ShopMeUserDetails userDetails,
+    public String root(@AuthenticationPrincipal ShopMeUserDetails userDetails, InventoryModel iModel,
                                 Model model) {
             String userEmail = userDetails.getUsername();
             User user = service.findUserByEmail(userEmail);
+
  
             model.addAttribute("user", user);
             model.addAttribute("pageTitle", "Account Details");
             model.addAttribute("inventory",inventory_sService.listInventory() );
-        
+            model.addAttribute("imgUtil",new ImgUtil());
+         
+            
             return "index";
     }
+    
 
     @GetMapping("/index")
     public String index(Model model) {
@@ -137,11 +154,11 @@ public class MainController {
                 imodel.setAvailable(inventoryModel.getAvailable() - 1) ;
                  inventoryRepository.save(imodel);}
            
-            //send email once item is booked
-            String email = user.getEmail();
-            String content = "Hello "+ user.getFirstName() +", you have successfully booked a "+ id +" .Kindly pick it up within the next 24hrs. Carry your school ID Card";
-            SendMail.send("joyskems@gmail.com","eilb pscg pnpz spjw",
-            email,"ITEM BOOKED",content);  
+            // //send email once item is booked
+            // String email = user.getEmail();
+            // String content = "Hello "+ user.getFirstName() +", you have successfully booked a "+ id +" .Kindly pick it up within the next 24hrs. Carry your school ID Card";
+            // SendMail.send("joyskems@gmail.com","eilb pscg pnpz spjw",
+            // email,"ITEM BOOKED",content);  
 
                     inventoryService.saveBooking(inventoryRecords, id);
                     return "redirect:index";
@@ -172,28 +189,31 @@ public class MainController {
         String staffIssued = staffNamesCombined;
         String dateIssued = inventoryRecords.getDateIssued();
         long id = inventoryRecords.getId();
-        String item = inventoryRecords.getItem();
+       // String item = inventoryRecords.getItem();
+
+
         model.addAttribute("dateIssued", dateIssued);
         model.addAttribute("staffIssued", staffIssued);
         model.addAttribute("regNo", regNo);
         model.addAttribute("id", id);
-        model.addAttribute("item", item);
+       // model.addAttribute("item", item);
         //edit data on Inventory once issued
-           InventoryModel inventoryModel = inventory_sService.findByItem(item);
-           if (inventoryModel != null){ 
-               InventoryModel imodel = inventoryRepository.findBySportItem(item);
-               imodel.setBookedNo(inventoryModel.getBookedNo() - 1) ;
-               imodel.setIssuedNo(inventoryModel.getIssuedNo() + 1) ;
-                inventoryRepository.save(imodel);
+         //  InventoryModel inventoryModel = inventory_sService.findByItem(item);
+        //    if (inventoryModel != null){ 
+        //     Long iD = inventoryModel.getId();
+        //         InventoryModel imodel = inventory_sService.findById(iD).get();
+        //        imodel.setBookedNo(inventoryModel.getBookedNo() - 1) ;
+        //        imodel.setIssuedNo(inventoryModel.getIssuedNo() + 1) ;
+        //         inventoryRepository.save(imodel);
                 
-        //send email once item is issued
-        String content = "Hello, "+"you have successfully been issued an item from the sports stores. Kindly ensure you return it to avoid consequences.";
-        SendMail.send("joyskems@gmail.com","eilb pscg pnpz spjw",
-            "joyskems@gmail.com","ITEM ISSUED",content);
+        // // //send email once item is issued
+        // // String content = "Hello, "+"you have successfully been issued an item from the sports stores. Kindly ensure you return it to avoid consequences.";
+        // // SendMail.send("joyskems@gmail.com","eilb pscg pnpz spjw",
+        // //     "joyskems@gmail.com","ITEM ISSUED",content);
         
+        // 
+        //    }
         inventoryService.saveIssuing(inventoryRecords, id);
-           }
-           
        return "redirect:booked" ;
        
     }
@@ -289,6 +309,28 @@ public class MainController {
     
                      
                 }
+               @GetMapping("/index2")
+               public String show(){
+                return "index2";
+               } 
+                @PostMapping("/item")
+                public String saveItem( @RequestParam("name")String name,
+                @RequestParam("item")String item, @RequestParam("total")Integer total, @RequestParam("file")MultipartFile file ) {
+                     
+                     inventory_sService.saveNewItem(name, item, total, file);
+                    return   "redirect:items";
+                          }
+                
+            
+
+            @PostMapping("/search")
+            public String listFoundRecords(@ModelAttribute("inventoryRecords")  InventoryRecords inventoryRecords, Model model){
+               String regNo = inventoryRecords.getRegNo();
+              model.addAttribute("regNo", regNo);
+
+                model.addAttribute("inventoryRecords",inventoryService.findByRegNoEquals(regNo) );
+                return"issued";
+            }
 }
   
         

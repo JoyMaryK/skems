@@ -42,7 +42,7 @@ public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
             .authorizeRequests()
             .antMatchers("/booked").access("hasAuthority('STAFF')")
             .antMatchers("/issued").access("hasAuthority('STAFF')")
-
+            .antMatchers("/item/save").access("hasAuthority('STAFF')")
             .antMatchers(
                 "/registration**",
                 "/js/**",
@@ -64,10 +64,15 @@ public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
             .logoutSuccessUrl("/login?logout")
             .permitAll();
-
+            http.cors().and().csrf().disable();
             http.authenticationProvider(authenticationProvider());
             http.headers().frameOptions().sameOrigin();
             return http.build();
+
+           
+                
+           
+        
     }
 
   
@@ -85,4 +90,5 @@ public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
         AuthenticationConfiguration authConfig) throws Exception {
     return authConfig.getAuthenticationManager();
 }
+
 }

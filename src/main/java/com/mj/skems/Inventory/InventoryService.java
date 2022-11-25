@@ -1,11 +1,15 @@
 package com.mj.skems.Inventory;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mj.skems.inventoryRecords.InventoryRecordsRepository;
 
@@ -19,6 +23,8 @@ public class InventoryService {
     @Autowired
     InventoryRecordsRepository inventoryRecordsRepository;
 
+    @Autowired
+    InventoryModel inventoryModel;
     
    public List<InventoryModel> listInventory(){
         return inventoryRepository.findAll();
@@ -80,12 +86,39 @@ public class InventoryService {
         return inventoryRepository.findOldTotalNo(id);
     }
 
-    public InventoryModel findByItem(String item) {
-        return inventoryRepository.findBySportItem(item);
+    public Optional<InventoryModel> findByItem(String item) {
+
+        Long id = inventoryModel.getId();
+        return inventoryRepository.findById(id);
     }
     public Collection<InventoryModel> listSportItemsForGraph() {
         return inventoryRepository.findAll();
     }
     
+   public InventoryModel saveNewItem(String name, String item, Integer total, MultipartFile file){
+    InventoryModel iMod = new InventoryModel();
+    InventoryModel existing = inventoryRepository.findBySportItem(item);      //
+    if (existing != null) {
+        System.out.println("this item exists");
+    }
 
+   
+    String filename = StringUtils.cleanPath(file.getOriginalFilename());
+    if (filename.contains("..")){
+        System.out.println("not a valid file");
+    };
+    try {
+        iMod.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+    } catch (IOException e) {
+        
+        e.printStackTrace();
+    }
+    iMod.setSportItem(item);
+    iMod.setSport_name(name);
+    iMod.setTotalNo(total);
+    iMod.setAvailable(total);
+    iMod.setBookedNo(0);
+    iMod.setIssuedNo(0);
+ return inventoryRepository.save(iMod);
+   }
 }

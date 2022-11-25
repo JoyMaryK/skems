@@ -41,12 +41,18 @@ public class InventoryModel {
 	private String sportItem;
 
     @Lob
-    @Column(name = "Image", length = Integer.MAX_VALUE, nullable = true)
-    private byte[] image;
+    @Column(name = "Image", columnDefinition = "LONGBLOB")
+    private String image;
 
     private Integer available;
     private Integer totalNo;
+
+    @Column(name="booked_no")
     private Integer bookedNo;
+
+    @Column(name="issued_no")
     private Integer issuedNo;
+    @Column(nullable = true, length = 64)
+    private String photos;
 
 }
