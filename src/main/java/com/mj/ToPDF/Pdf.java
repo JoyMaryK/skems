@@ -30,13 +30,13 @@ public class Pdf {
  
     private void writeTableHeader(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
-        cell.setBackgroundColor(CMYKColor.BLUE);
+        cell.setBackgroundColor(CMYKColor.WHITE);
         cell.setPadding(4);
          
         Font font = FontFactory.getFont(FontFactory.HELVETICA);
-        font.setColor(CMYKColor.WHITE);
+        font.setColor(CMYKColor.BLACK);
          
-        cell.setPhrase(new Phrase("Registration Number", font)); 
+        cell.setPhrase(new Phrase("Reg. No", font)); 
         table.addCell(cell);
          
         cell.setPhrase(new Phrase("Student Name", font));
@@ -87,7 +87,7 @@ public class Pdf {
          
         PdfPTable table = new PdfPTable(5);
         table.setWidthPercentage(100f);
-        table.setWidths(new float[] {1.5f, 3.5f, 3.0f, 3.0f, 1.5f});
+        table.setWidths(new float[] {1.5f, 2.0f, 3.0f, 3.0f, 2.0f});
         table.setSpacingBefore(10);
          
         writeTableHeader(table);

@@ -54,14 +54,14 @@ public class InventoryService {
                     
                     if (total>oldTotalNo){
                         difference = total - oldTotalNo;
-                    iModel.setAvailable(iModel.getAvailable() + difference) ;
+                    iModel.setAvailable(iModel.getAvailable() + difference - iModel.getIssuedNo()) ;
                     iModel.setTotalNo(total) ;
                      }
                
             else if (total<oldTotalNo){
                difference = oldTotalNo - total;
              
-                    iModel.setAvailable(iModel.getAvailable() - difference) ;
+                    iModel.setAvailable(iModel.getAvailable() - difference - iModel.getIssuedNo()) ;
                     iModel.setTotalNo(total) ;
                    // }
                         }

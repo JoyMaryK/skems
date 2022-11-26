@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.stereotype.Component;
@@ -35,16 +37,21 @@ public class InventoryModel {
 
 
     @Column(name = "sport_name", nullable = false)
+    @NotEmpty( message = "must not be empty")
 	private String sport_name;
 
     @Column(name = "sport_item", nullable = false)
+    @NotEmpty( message = "must not be empty")
 	private String sportItem;
 
     @Lob
     @Column(name = "Image", columnDefinition = "LONGBLOB")
+    @NotEmpty( message = "must not be empty")
     private String image;
 
     private Integer available;
+
+    @NotNull( message = "must not be empty")
     private Integer totalNo;
 
     @Column(name="booked_no")

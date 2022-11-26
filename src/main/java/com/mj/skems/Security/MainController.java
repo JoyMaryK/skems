@@ -18,6 +18,7 @@ import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,7 +28,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -115,6 +116,10 @@ public class MainController {
     public String about(){
         return "about";
     }
+    // @GetMapping("/date")
+    // public String date(){
+    //     return "date";
+    // }
     @GetMapping("/user")
     public String loggedInUser
         (@AuthenticationPrincipal ShopMeUserDetails userDetails,
@@ -146,6 +151,11 @@ public class MainController {
             model.addAttribute("dateBooked", dateBooked);
             model.addAttribute("id", id);
         
+            if (dateBooked.isBlank()){
+                        return "date";
+            }
+            
+       
                 //change data on Inventory
             InventoryModel inventoryModel = inventory_sService.findById(id).get();
             if (inventoryModel != null){ 
