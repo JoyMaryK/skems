@@ -30,6 +30,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
               
+                
                 <li class="nav-item">
                     <a class="nav-link nav-link-2 " th:href="@{/booked}">Booked</a>
                 </li>
@@ -52,7 +53,21 @@
             </div>
         </div>
     </nav>
-    <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpeg" style="margin-top:20px ; margin-bottom: 20px;"></div>
+    <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpeg" style="margin-top:20px ; margin-bottom: 20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mt-7 mb-7">
+                    
+            <form class="input-group mb-3" method="get"  th:action="@{/searchIssued}" th:object="${inventoryRecords}">
+                <input type="text" class="form-control" placeholder="Search by Reg. No." aria-label="Recipient's username" aria-describedby="basic-addon2" name="regNo">
+                <div class="input-group-append">
+                  <button class="btn btn-secondary" type="submit">Search</button>
+                </div>
+            </form>
+           </div>
+           </div>
+           </div>
+    </div>
 
     <div th:if="${ #lists.isEmpty(inventoryRecords)}">
         <h4 class="text-success">Looks like there's no unreturned item</h4>
@@ -60,7 +75,8 @@
         <!-- <button type="button" class="btn btn-outline-success">ADD NEW</button> -->
     
         </div>
-    
+     
+       
     <div th:if="${ not#lists.isEmpty(inventoryRecords)}">
        
       <div class="container">
@@ -70,18 +86,14 @@
                 <table class="table table-sm table-bordered table-striped" style="width: 100%">
                     <div>
                         <h3 class="text-success">List of Issued Items
+                            
                             <a class="btn btn-success btn-sm" style="float: right;" aria-current="page" th:href="@{/pdf}">
-                             SAVE LIST   <i class="fas fa-file-download"></i></a></h6>
+                             DOWNLOAD LIST   <i class="fas fa-file-download"></i></a></h6>
                         </h3>
                     </div>
                     <br>
                     <div class="input-group mb-3"> 
                         
-                        <input type="text" name= "regNo"class="form-control input-text text-success " placeholder="Search by Reg. No." aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                          <button class="btn btn-outline-success btn-lg" type="submit"><i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
               <h6>Click the Returned button if the Item has been returned.
                 
               </h6>

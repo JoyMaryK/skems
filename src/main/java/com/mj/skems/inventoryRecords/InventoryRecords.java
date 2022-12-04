@@ -50,7 +50,7 @@ public class InventoryRecords {
     private String firstName;
     private String lastName;
     private Long ItemId;
-    
+    private String email;
 
 
 }

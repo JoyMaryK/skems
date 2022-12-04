@@ -52,7 +52,24 @@
         </div>
     </nav>
 
-    <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpeg" style="margin-top:20px ; margin-bottom: 20px;"></div>
+    <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpeg" style="margin-top:20px ; margin-bottom: 20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mt-7 mb-7">
+                    
+            <form class="input-group mb-3" method="get"  th:action="@{/searchBooked}" th:object="${inventoryRecords}">
+                <input type="text" class="form-control" placeholder="Search by Reg. No." aria-label="Recipient's username" aria-describedby="basic-addon2" name="regNo">
+                <div class="input-group-append">
+                  <button class="btn btn-secondary" type="submit">Search</button>
+                </div>
+            </form>
+           </div>
+           </div>
+           </div>
+    </div>
+    
+    
+    
     <div th:if="${ #lists.isEmpty(inventoryRecords)}">
         <h4 class="text-success">Looks like there's no activity for today</h4>
         

@@ -40,4 +40,11 @@ public interface InventoryRecordsRepository extends JpaRepository<InventoryRecor
 
     @Query("select  count(*) from InventoryRecords a where a.item =:item and a.dateReturned is null and a.dateIssued is not null")
     public Integer noOfIssued(@Param(value = "item")String item );
+
+
+    @Query(value = "select * from Inventory_Records where reg_no like %:regNo% and date_issued is not null and date_returned is null ", nativeQuery = true)
+     List<InventoryRecords> searchIssuedByRegNo  (@Param("regNo") String regNo);
+
+     @Query(value = "select * from Inventory_Records where reg_no like %:regNo% and date_booked =:dateBooked date_issued is null", nativeQuery = true)
+     List<InventoryRecords> searchBookedByRegNo  (@Param("regNo") String regNo , String dateBooked );
 }

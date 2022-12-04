@@ -50,6 +50,17 @@ public class InventoryRecordsService {
         return inventoryRecordsRepository.findAllByDateReturned();
     };
     
+    public List<InventoryRecords> listSearchResultsIssued(String regNo){
+
+                return inventoryRecordsRepository.searchIssuedByRegNo(regNo);
+    };
+
+    public List<InventoryRecords> listSearchResultsBooked(String regNo){
+        String date = LocalDate.now().toString();
+        return inventoryRecordsRepository.searchBookedByRegNo(regNo, date);
+};
+
+
                         //  Issued List 
     public List<InventoryRecords> listIssuedRecords(){
 
@@ -74,20 +85,27 @@ public class InventoryRecordsService {
        String date = LocalDate.now().toString();
        String item = records.getItem();
        
-       
+       String email = records.getEmail();
        
        Long iD =inventoryRepository.findIdOfItem(item);
        InventoryModel inventorymodel = inventoryRepository.findById(iD).get();
         if (inventorymodel != null){ 
        // InventoryModel imodel = inventorymodel;
             // InventoryModel imodel = inventory_sService.findById(iD).get();
-            inventorymodel.setBookedNo(inventorymodel.getBookedNo() - 1) ;
+            if (inventorymodel.getBookedNo() != 0){
+                inventorymodel.setBookedNo(inventorymodel.getBookedNo() - 1) ;
+            }
+            else {
+                inventorymodel.setBookedNo(inventorymodel.getBookedNo() ) ;
+            }
+
             inventorymodel.setIssuedNo(inventorymodel.getIssuedNo() + 1) ;
+            
              inventoryRepository.save(inventorymodel);             
-     // //send email once item is issued
-     // String content = "Hello, "+"you have successfully been issued an item from the sports stores. Kindly ensure you return it to avoid consequences.";
-     // SendMail.send("joyskems@gmail.com","eilb pscg pnpz spjw",
-     //     "joyskems@gmail.com","ITEM ISSUED",content);
+     //send email once item is issued
+     String content = "Hello, "+ records.getFirstName()+ " you have successfully been issued an item from the sports stores. Kindly ensure you return it to avoid consequences.";
+     SendMail.send("joyskems@gmail.com","eilb pscg pnpz spjw",
+         email,"ITEM ISSUED",content);
      
      records.setDateIssued(date);
        records.setStaffIssued(staffNamesCombined);
@@ -119,12 +137,7 @@ public class InventoryRecordsService {
         records.setRegNo(user.getRegStaffNo()); 
         records.setFirstName(studentNamesCombined);
         records.setItemId(id); 
-        // records.setLastName(user.getLastName());
-
-        // InventoryModel imodel = inventoryRepository.findById(id).get();
-        // imodel.setBookedNo(inventoryModel.getBookedNo() + 1) ;
-        // inventoryRepository.save(imodel);
-       // inventory_sService.updateBooked(inventoryModel, id);
+        records.setEmail(user.getUsername());
 
            return inventoryRecordsRepository.save(records);
     
@@ -140,7 +153,7 @@ public class InventoryRecordsService {
         String staffNamesCombined = staffIssuedNames[0] + staffIssuedNames[1] + staffIssuedNames[2];
           
         String date = LocalDate.now().toString();
-
+        String email = records.getEmail();
 
         String item = records.getItem();
 
@@ -154,10 +167,10 @@ public class InventoryRecordsService {
              inventorymodel.setAvailable(inventorymodel.getAvailable() + 1) ;
              inventorymodel.setIssuedNo(inventorymodel.getIssuedNo() - 1) ;
               inventoryRepository.save(inventorymodel);             
-    //   //send email once item is issued
-    //   String content = "Hello, you have successfully returned "+item +"from the sports stores. Thank you! ";
-    //   SendMail.send("joyskems@gmail.com","eilb pscg pnpz spjw",
-    //       "joyskems@gmail.com","ITEM ISSUED",content);
+      //send email once item is issued
+      String content = "Hello,"+ records.getFirstName()+" you have successfully returned the "+item +" to the sports stores. Thank you! ";
+      SendMail.send("joyskems@gmail.com","eilb pscg pnpz spjw",
+          email,"ITEM ISSUED",content);
 
     records.setDateReturned(date);
     records.setStaffReurned(staffNamesCombined);

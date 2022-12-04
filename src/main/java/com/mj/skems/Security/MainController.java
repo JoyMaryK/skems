@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -164,11 +164,11 @@ public class MainController {
                 imodel.setAvailable(inventoryModel.getAvailable() - 1) ;
                  inventoryRepository.save(imodel);}
            
-            // //send email once item is booked
-            // String email = user.getEmail();
-            // String content = "Hello "+ user.getFirstName() +", you have successfully booked a "+ id +" .Kindly pick it up within the next 24hrs. Carry your school ID Card";
-            // SendMail.send("joyskems@gmail.com","eilb pscg pnpz spjw",
-            // email,"ITEM BOOKED",content);  
+            //send email once item is booked
+            String email = user.getEmail();
+            String content = "Hello "+ user.getFirstName() +", you have successfully booked a "+ item +" .Kindly pick it up within the next 24hrs. Carry your school ID Card";
+            SendMail.send("joyskems@gmail.com","eilb pscg pnpz spjw",
+            email,"ITEM BOOKED",content);  
 
                     inventoryService.saveBooking(inventoryRecords, id);
                     return "redirect:index";
@@ -206,23 +206,7 @@ public class MainController {
         model.addAttribute("staffIssued", staffIssued);
         model.addAttribute("regNo", regNo);
         model.addAttribute("id", id);
-       // model.addAttribute("item", item);
-        //edit data on Inventory once issued
-         //  InventoryModel inventoryModel = inventory_sService.findByItem(item);
-        //    if (inventoryModel != null){ 
-        //     Long iD = inventoryModel.getId();
-        //         InventoryModel imodel = inventory_sService.findById(iD).get();
-        //        imodel.setBookedNo(inventoryModel.getBookedNo() - 1) ;
-        //        imodel.setIssuedNo(inventoryModel.getIssuedNo() + 1) ;
-        //         inventoryRepository.save(imodel);
-                
-        // // //send email once item is issued
-        // // String content = "Hello, "+"you have successfully been issued an item from the sports stores. Kindly ensure you return it to avoid consequences.";
-        // // SendMail.send("joyskems@gmail.com","eilb pscg pnpz spjw",
-        // //     "joyskems@gmail.com","ITEM ISSUED",content);
-        
-        // 
-        //    }
+      
         inventoryService.saveIssuing(inventoryRecords, id);
        return "redirect:booked" ;
        
@@ -333,14 +317,33 @@ public class MainController {
                 
             
 
-            @PostMapping("/search")
-            public String listFoundRecords(@ModelAttribute("inventoryRecords")  InventoryRecords inventoryRecords, Model model){
-               String regNo = inventoryRecords.getRegNo();
-              model.addAttribute("regNo", regNo);
-
-                model.addAttribute("inventoryRecords",inventoryService.findByRegNoEquals(regNo) );
+            @GetMapping("/searchIssued")
+            public String listFoundRecords(@Param("regNo")String regNo ,Model model){
+              
+                if (regNo != null){
+                
+                model.addAttribute("inventoryRecords", inventoryService.listSearchResultsIssued(regNo));
+                }
+                else {
+                List<InventoryRecords> list = inventoryService.listIssuedRecords();
+                model.addAttribute("inventoryRecords",inventoryService.listIssuedRecords());
+                }
                 return"issued";
             }
+            @GetMapping("/searchBooked")
+            public String listFoundBookedRecords(@Param("regNo")String regNo ,Model model){
+              
+                if (regNo != null){
+                
+                model.addAttribute("inventoryRecords", inventoryService.listSearchResultsBooked(regNo));
+                }
+                else {
+                List<InventoryRecords> list = inventoryService.listIssuedRecords();
+                model.addAttribute("inventoryRecords",inventoryService.listBookedRecords());
+                }
+                return"issued";
+            }
+
 }
   
         

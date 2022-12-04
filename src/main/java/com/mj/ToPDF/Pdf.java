@@ -44,7 +44,7 @@ public class Pdf {
          
         cell.setPhrase(new Phrase("Item", font));
         table.addCell(cell);
-        cell.setPhrase(new Phrase("Date Booked", font));
+        cell.setPhrase(new Phrase("Date Issued", font));
         table.addCell(cell);
          
         cell.setPhrase(new Phrase("Issued by", font));
@@ -58,7 +58,7 @@ public class Pdf {
             table.addCell(inventoryRecords.getRegNo());
             table.addCell(inventoryRecords.getFirstName());
             table.addCell(inventoryRecords.getItem());
-            table.addCell(inventoryRecords.getDateBooked());
+            table.addCell(inventoryRecords.getDateIssued());
             table.addCell(inventoryRecords.getStaffIssued());
 
             

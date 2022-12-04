@@ -42,29 +42,20 @@ public class InventoryService {
     
     public InventoryModel updateTotals(InventoryModel inventory,Long id, String item){
        
-        Integer difference;
+        
         InventoryModel iModel = inventoryRepository.findById(id).get();
-        Integer oldTotalNo = iModel.getTotalNo();
+     
         Integer total = inventory.getTotalNo();
-        InventoryModel inventoryModel;
-       
+      
+        Integer issuedNo = iModel.getIssuedNo();
         
                 //inventoryModel = inventoryRepository.findById(id).get();
                // if (iModel != null){ 
                     
-                    if (total>oldTotalNo){
-                        difference = total - oldTotalNo;
-                    iModel.setAvailable(iModel.getAvailable() + difference - iModel.getIssuedNo()) ;
+                  
+                    iModel.setAvailable(total  - issuedNo - iModel.getBookedNo()  ) ;
                     iModel.setTotalNo(total) ;
-                     }
-               
-            else if (total<oldTotalNo){
-               difference = oldTotalNo - total;
-             
-                    iModel.setAvailable(iModel.getAvailable() - difference - iModel.getIssuedNo()) ;
-                    iModel.setTotalNo(total) ;
-                   // }
-                        }
+                     
                 
        
         return inventoryRepository.save(iModel);
