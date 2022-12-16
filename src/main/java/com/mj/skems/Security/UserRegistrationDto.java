@@ -18,15 +18,23 @@ public class UserRegistrationDto {
     
 
     @NotEmpty
+    @NotBlank
+    @Pattern(regexp="[A-Za-z][a-zA-Z]*",message="must be all characters")
     private String firstName;
 
     @NotEmpty
+    @NotBlank
+    @Pattern(regexp="[A-Za-z][a-zA-Z]*",message="must be all characters")
     private String lastName;
 
     @NotEmpty
+    @NotBlank
+    @Pattern(regexp="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$",message="must be 8- 20 characters long \t   must have an UPPERCASE, lowercase and special character")  
     private String password;
 
     @NotEmpty
+    @NotBlank
+    @Pattern(regexp="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" ,message="must be 8- 20 characters long  \t must have an UPPERCASE, lowercase and special character")  
     private String confirmPassword;
 
     @Email

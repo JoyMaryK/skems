@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>FAQ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="css/templatemo-style.css">
+	<style>
+		
+		.layout{
+			width: 600px;
+			margin: auto;
+            
+		}
+		.accordion{
+			padding: 10px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+            
+            background: rgb(80, 204, 80); 
+			border-radius: 10px;
+		}
+		.accordion__question p{
+			margin: 5px;
+			padding: 0;
+			font-family: Verdana;
+			font-size: 20px;
+            color: rgb(0, 0, 0);
+            
+		}
+		.accordion__answer p{
+			margin: 5px;
+			padding: 10px;
+			font-size: large;
+			font-family: Verdana, Geneva, Tahoma, sans-serif;
+			color: rgb(0, 0, 0);
+			background: rgb(247, 248, 247);
+			border-radius: 10px;
+		}
+		.accordion:hover{
+			cursor: pointer;
+		}
+		.accordion__answer {
+			display: none;
+		}
+		.accordion.active .accordion__answer {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand text-success" >
+                <i class="fas fa-table-tennis text-success"></i>
+                Sports Stores
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+              
+                <li class="nav-item">
+                    <a class="nav-link nav-link-2 active" aria-current="page" th:href="@{/booked}">Booked</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-1" th:href="@{/issued}">Issued</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-3" th:href="@{/barChart}">Graphs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-4" th:href="@{/items}">Items</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="nav-link nav-link-3" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+    </nav>
+
+	
+    <h2 style="text-align:center">FAQs</h2>
+	<div class="layout">
+		<div class="accordion">
+			<div class="accordion__question">
+				<p>Where is Taj Mahal located?</p>
+
+			</div>
+			<div class="accordion__answer">
+				<p>Taj Mahal is located in Agra, Uttar Pradesh.</p>
+
+			</div>
+		</div>
+		<div class="accordion">
+			<div class="accordion__question">
+				<p>How many planets are there in solar system?</p>
+
+			</div>
+			<div class="accordion__answer">
+				<p>
+				There are eight planets in solar system.
+				Mercury, Venus, Earth, Mars, Jupiter, Saturn,
+				Uranus, and Neptune.
+				</p>
+
+			</div>
+		</div>
+	</div>
+
+	<script>
+		let answers=document.querySelectorAll(".accordion");
+		answers.forEach((event)=>{
+			event.addEventListener('click',()=>{
+				if(event.classList.contains("active")){
+					event.classList.remove("active");
+				}
+				else{
+					event.classList.add("active");
+				}
+			})
+		})
+	</script>
+</body>
+</html>

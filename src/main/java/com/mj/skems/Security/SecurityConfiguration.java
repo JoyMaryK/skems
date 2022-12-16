@@ -41,8 +41,11 @@ public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
         http
             .authorizeRequests()
             .antMatchers("/booked").access("hasAuthority('STAFF')")
+            .antMatchers("/booked").access("hasAuthority('ADMIN')")
             .antMatchers("/issued").access("hasAuthority('STAFF')")
+            .antMatchers("/issued").access("hasAuthority('ADMIN')")
             .antMatchers("/item/save").access("hasAuthority('STAFF')")
+            .antMatchers("/adminUsers").access("hasAuthority('ADMIN')")
             .antMatchers(
                 "/registration**",
                 "/js/**",

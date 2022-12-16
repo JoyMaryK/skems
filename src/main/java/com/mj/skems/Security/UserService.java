@@ -2,6 +2,8 @@ package com.mj.skems.Security;
 
 
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,8 @@ public interface UserService extends UserDetailsService {
 
     User findUserByEmail(String email);
 
+    List<User> listAll();
+
+    List<User> listByEmail(String email);
     // List<UserRegistrationDto> findAllUsers();
 }

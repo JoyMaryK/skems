@@ -393,6 +393,34 @@ public class MainController {
         return"studentAccount";
     }
   
+    @GetMapping("/adminUsers")
+    public String listUsers(Model model){
+        model.addAttribute("users",service.listAll() );
+        return"accountAdmin";
+    }
+    @GetMapping("/studentHelp")
+    public String studentHelp(){
+        
+        return"studentFAQ";
+    }
+    @GetMapping("/staffHelp")
+    public String staffHelp(){
+        
+        return"staffFAQ";
+    }
+    @GetMapping("/searchUsers")
+            public String listSearchedUser(@Param("email")String email ,Model model){
+              
+                if (email != null){
+                
+                model.addAttribute("users", service.findUserByEmail(email));
+                }
+                else {
+                List<User> list = service.listAll();
+                model.addAttribute("users",list);
+                }
+                return"accountAdmin";
+            }
 
 }
   

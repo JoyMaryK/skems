@@ -40,6 +40,9 @@
                     <a class="nav-link nav-link-1" th:href="@{/studentIssued}">Account</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link nav-link-3" th:href="@{/studentHelp}">Help</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link nav-link-4" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
                 </li>
                 
@@ -101,10 +104,10 @@
                                                    
                                                     
                                                  
-                                                 <p th:text="${date}"></p>
+                                              
                                                  
                                                  <input type="date"  class="form-control"  id="datePicker"
-                                                min="1997-01-01" max="2030-12-31" style="margin-bottom: 15px;" name="dateBooked"
+                                                min="2022-12-16" max="2022-12-23" style="margin-bottom: 15px;" name="dateBooked"
                                                  aria-label="Small" aria-describedby="inputGroup-sizing-sm"><br>
                                                 
                                                
@@ -118,11 +121,11 @@
                             </figcaption>
                         </figure>
                         <div class="card-body">
-                         
-                           <span class="card-text"  th:text="${inventoris.available}"></span>
-                           <span>available</span>
-                          <button class="btn sm btn-outline-success" style="margin-left: 8rem; border-radius: 70%; float: right ;">
-                            <i class="fas fa-info" style="float: right ;"></i></button>
+                            <span style="float:right; " >  &nbspavailable</span>
+                           <span style="float:right; " class="card-text"  th:text="${inventoris.available}">available</span>
+                           
+                          <!-- <button class="btn sm btn-outline-success" style="margin-left: 8rem; border-radius: 70%; float: right ;">
+                            <i class="fas fa-info" style="float: right ;"></i></button> -->
                         </div>
                        
                         

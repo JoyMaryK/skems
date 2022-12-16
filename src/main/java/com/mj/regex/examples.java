@@ -53,6 +53,26 @@ public class examples {
         return m1.matches();
    }
 
+   public static boolean isValidPwd(String regNo){
+
+    String regexReg = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+
+    Pattern p1 = Pattern.compile(regexReg);
+
+    Matcher m1 = p1.matcher(regNo);
+     
+    return m1.matches();
+}
+public static boolean isValidName(String regNo){
+
+    String regexReg = "[A-Za-z][a-zA-Z]*";
+
+    Pattern p1 = Pattern.compile(regexReg);
+
+    Matcher m1 = p1.matcher(regNo);
+     
+    return m1.matches();
+}
     // Driver Code
     public static void main(String[] args)
     {
@@ -60,10 +80,10 @@ public class examples {
         
 
 
-        String p1= "S13/03140/18", p2 = "SP13/03140/22", p3= "SP13\\03140\\29", p4="SS14";
-        System.out.println("p1"+isValidRegNo(p1));
-        System.out.println("p2"+isValidRegNo(p2));
-        System.out.println("p3"+isValidRegNo(p3));
-        System.out.println("p4"+isValidRegNo(p4));
+        String p1= "aaa", p2 = "Akotch", p3= "AAkotch@110", p4="SS14#sdkjn4";
+        System.out.println("p1"+isValidName(p1));
+        System.out.println("p2"+isValidName(p2));
+        System.out.println("p3"+isValidName(p3));
+        System.out.println("p4"+isValidName(p4));
     }
 }
