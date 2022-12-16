@@ -25,7 +25,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -62,6 +63,10 @@ public class MainController {
 
      @Autowired
      SendMail mail;
+
+     @Autowired
+     BCryptPasswordEncoder passwordEncoder;
+ 
 
  @Autowired
  UserRepository userRepository;
@@ -194,23 +199,40 @@ public class MainController {
             String staffNamesCombined = staffIssuedNames[0] + staffIssuedNames[1];
 
         String regNo = inventoryRecords.getRegNo();
-        
+        String email = inventoryRecords.getEmail();
         // String staffIssued = user.getRegStaffNo();
         String staffIssued = staffNamesCombined;
         String dateIssued = inventoryRecords.getDateIssued();
         long id = inventoryRecords.getId();
        // String item = inventoryRecords.getItem();
-
-
+     
+    
+         
         model.addAttribute("dateIssued", dateIssued);
         model.addAttribute("staffIssued", staffIssued);
         model.addAttribute("regNo", regNo);
         model.addAttribute("id", id);
+        model.addAttribute("email", email);
+            UserDetails user2 =  service.loadUserByUsername(email);
+            String pwd = inventoryRecords.getPwd();
+
+        model.addAttribute("pwd", pwd);
       
-        inventoryService.saveIssuing(inventoryRecords, id);
-       return "redirect:booked" ;
-       
-    }
+            if (passwordEncoder.matches(pwd, user2.getPassword()) == false ){
+
+
+                
+                return "issueError";
+        
+               }
+
+                    inventoryService.saveIssuing(inventoryRecords, id);
+                    return "redirect:booked";
+                }
+
+
+      
+     
 
     @GetMapping("/issued")
     public String listIssuedRecords(Model model){
@@ -226,15 +248,31 @@ public class MainController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
 
-
+        
         String dateReturned = inventoryRecords.getDateReturned();
                String staffReurned = user.getRegStaffNo().toString();
                String status = inventoryRecords.getStatus();
                long id = inventoryRecords.getId();
+
+               String email = inventoryRecords.getEmail();
+               
             model.addAttribute("dateReturned", dateReturned);
             model.addAttribute("staffReurned", staffReurned);
             model.addAttribute("status", status);
             model.addAttribute("id", id);
+            model.addAttribute("email", email);
+            UserDetails user2 =  service.loadUserByUsername(email);
+            String pwd = inventoryRecords.getPwd();
+
+        model.addAttribute("pwd", pwd);
+      
+            if (passwordEncoder.matches(pwd, user2.getPassword()) == false ){
+
+
+                
+                return "returnError";
+        
+               }
 
                     inventoryService.saveReturn(inventoryRecords, id);
                     return "redirect:issued";
@@ -341,8 +379,20 @@ public class MainController {
                 List<InventoryRecords> list = inventoryService.listIssuedRecords();
                 model.addAttribute("inventoryRecords",inventoryService.listBookedRecords());
                 }
-                return"issued";
+                return"booked";
             }
+
+
+          
+    @GetMapping("/studentIssued")
+    public String listIssuedStudentRecords(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
+
+        model.addAttribute("inventoryRecords",inventoryService.findByRegNoEquals(user.getRegStaffNo()) );
+        return"studentAccount";
+    }
+  
 
 }
   

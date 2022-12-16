@@ -190,4 +190,9 @@ public class InventoryRecordsService {
         return inventoryRecordsRepository.findByRegNoEquals(regNo);
     }
 
+public Optional<InventoryRecords> findStudentIssued(String email){
+
+    return inventoryRecordsRepository.findAllIssuedByEmail(email);
+}
+
 }

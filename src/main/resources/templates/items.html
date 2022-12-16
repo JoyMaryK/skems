@@ -133,7 +133,7 @@
             <td th:text="${inventoris.bookedNo}"></td>
             <td th:text="${inventoris.issuedNo}"></td>
             <td th:text="${inventoris.available}"></td>
-            <td ><input  type="number" th:value="${inventoris.totalNo}" name="totalNo" ></td>
+            <td ><input  type="number" th:value="${inventoris.totalNo}" name="totalNo" min="0" max="999"></td>
             <input type="hidden" th:value="${inventoris.id}" name="id"/> 
               <td><button type="submit" class="btn btn-outline-success">EDIT</button> </td>  
             </form>                

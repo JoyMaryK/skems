@@ -37,16 +37,16 @@ public class InventoryModel {
 
 
     @Column(name = "sport_name", nullable = false)
-    @NotEmpty( message = "must not be empty")
+    @NotNull( message = "must not be empty")
 	private String sport_name;
 
     @Column(name = "sport_item", nullable = false)
-    @NotEmpty( message = "must not be empty")
+    @NotNull( message = "must not be empty")
 	private String sportItem;
 
     @Lob
     @Column(name = "Image", columnDefinition = "LONGBLOB")
-    @NotEmpty( message = "must not be empty")
+    @NotNull( message = "must not be empty")
     private String image;
 
     private Integer available;

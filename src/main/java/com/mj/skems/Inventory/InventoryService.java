@@ -56,6 +56,8 @@ public class InventoryService {
                     iModel.setAvailable(total  - issuedNo - iModel.getBookedNo()  ) ;
                     iModel.setTotalNo(total) ;
                      
+                    
+                    
                 
        
         return inventoryRepository.save(iModel);

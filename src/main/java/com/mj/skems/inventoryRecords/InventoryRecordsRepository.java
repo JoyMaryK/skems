@@ -32,6 +32,9 @@ public interface InventoryRecordsRepository extends JpaRepository<InventoryRecor
     @Query("SELECT r from InventoryRecords r where r.regNo =:regNo and r.dateReturned is NULL")
     public Optional<InventoryRecords>findAllIssuedByRegNo(@Param(value="regNo" )String regNo);
 
+    @Query("SELECT r from InventoryRecords r where r.email =:email and r.dateReturned is NULL")
+    public Optional<InventoryRecords> findAllIssuedByEmail(@Param(value="email" )String email);
+
     @Query("SELECT r from InventoryRecords r where r.item =:item and r.dateIssued is NOT NULL")
     public List<InventoryRecords> findAllByItem(@Param(value="item") String item);
    
@@ -45,6 +48,8 @@ public interface InventoryRecordsRepository extends JpaRepository<InventoryRecor
     @Query(value = "select * from Inventory_Records where reg_no like %:regNo% and date_issued is not null and date_returned is null ", nativeQuery = true)
      List<InventoryRecords> searchIssuedByRegNo  (@Param("regNo") String regNo);
 
-     @Query(value = "select * from Inventory_Records where reg_no like %:regNo% and date_booked =:dateBooked date_issued is null", nativeQuery = true)
+     @Query(value = "select * from Inventory_Records where reg_no like %:regNo% and date_booked =:dateBooked and date_issued is null", nativeQuery = true)
      List<InventoryRecords> searchBookedByRegNo  (@Param("regNo") String regNo , String dateBooked );
+
+
 }

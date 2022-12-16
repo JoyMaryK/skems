@@ -51,6 +51,8 @@ public class InventoryRecords {
     private String lastName;
     private Long ItemId;
     private String email;
-
+    
+    
+    private String pwd;
 
 }

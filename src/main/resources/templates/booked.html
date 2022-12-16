@@ -53,19 +53,7 @@
     </nav>
 
     <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpeg" style="margin-top:20px ; margin-bottom: 20px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 mt-7 mb-7">
-                    
-            <form class="input-group mb-3" method="get"  th:action="@{/searchBooked}" th:object="${inventoryRecords}">
-                <input type="text" class="form-control" placeholder="Search by Reg. No." aria-label="Recipient's username" aria-describedby="basic-addon2" name="regNo">
-                <div class="input-group-append">
-                  <button class="btn btn-secondary" type="submit">Search</button>
-                </div>
-            </form>
-           </div>
-           </div>
-           </div>
+        
     </div>
     
     
@@ -83,6 +71,15 @@
             <div class="col-lg-10 mt-5 mb-5">
                 <table class="table table-sm table-bordered table-striped" style="width: 100%">
                     <h3 class="text-success">List of Booked Items</h3><br>
+                    <div class="input-group mb-3"> 
+                                 
+                        <form class="input-group mb-3" method="get"  th:action="@{/searchBooked}" th:object="${inventoryRecords}">
+                            <input type="text" class="form-control" placeholder="Search by Reg. No." aria-label="Recipient's username" aria-describedby="basic-addon2" name="regNo">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-success btn-lg" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                        </div>
 <h6>Click the Issue button to Issue the Item to the student.</h6>
                     <thead>
                         <tr>
@@ -105,7 +102,35 @@
                             <td th:text="${inventoryRecord.dateBooked}"></td>   
                             <td><input type="hidden" th:value="${inventoryRecord.id}" name="id"></td>                         
                             <td><input type="hidden" th:value="${inventoryRecord.regNo}" name="regNo"/>
-                                <button type="submit" class="btn btn-outline-success">Issue Item</button></td>
+                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModalCenter">Issue Item</button></td>
+                               
+                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalCenterTitle">Student Verification</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          
+                                                <div class="form-group">
+                                                  <label for="exampleInputEmail1">Student Email</label>
+                                                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" th:value="${inventoryRecord.email}" name="email" readonly> 
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="item">Password</label>
+                                                    <input type="password" class="form-control" id="item" aria-describedby="emailHelp" placeholder="Enter your password" name="pwd"> 
+                                                  </div>
+                                                                                    
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          <button type="submit" class="btn btn-success">Verify</button>
+                                        </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                         </form>
                         </tr>
                     </tbody>
