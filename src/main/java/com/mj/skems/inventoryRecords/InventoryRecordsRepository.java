@@ -51,5 +51,7 @@ public interface InventoryRecordsRepository extends JpaRepository<InventoryRecor
      @Query(value = "select * from Inventory_Records where reg_no like %:regNo% and date_booked =:dateBooked and date_issued is null", nativeQuery = true)
      List<InventoryRecords> searchBookedByRegNo  (@Param("regNo") String regNo , String dateBooked );
 
+     @Query(value = "select * from Inventory_Records where reg_no like %:regNo% and date_returned is not null", nativeQuery = true)
+     List<InventoryRecords> searchAllRecordsByRegNo  (@Param("regNo") String regNo);
 
 }

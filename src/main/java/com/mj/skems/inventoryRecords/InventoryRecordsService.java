@@ -194,5 +194,8 @@ public Optional<InventoryRecords> findStudentIssued(String email){
 
     return inventoryRecordsRepository.findAllIssuedByEmail(email);
 }
+public List<InventoryRecords> findRecordsByRegNoEquals(String regNo) {
 
+    return inventoryRecordsRepository.searchAllRecordsByRegNo(regNo);
+}
 }

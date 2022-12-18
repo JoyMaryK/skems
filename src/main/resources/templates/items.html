@@ -10,7 +10,7 @@
 
 </head>
 <body>
-    <form th:action="@{/user}" th:object="${user}" method="get">
+    
     <!-- Page Loader -->
     <div id="loader-wrapper">
         <div id="loader"></div>
@@ -44,7 +44,9 @@
                 <li class="nav-item">
                     <a class="nav-link nav-link-3 active" aria-current="page" th:href="@{/items}">Items</a>
                 </li>
-                
+                <li class="nav-item">
+                    <a class="nav-link nav-link-4" th:href="@{/staffHelp}">Help</a>
+                </li>
                 
                 <li class="nav-item">
                     <a class="nav-link nav-link-2" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
@@ -74,6 +76,7 @@
                     ADD NEW   <i class="fas fa-plus"></i></a>
                </h3>
                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+               
                 <div class="modal-dialog modal-dialog-centered" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -82,24 +85,34 @@
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
+                    
                     <div class="modal-body">
+                       
                         <form th:action="@{/item}" th:object="${inventoryModel}" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
+                            <script th:inline="javascript" th:if="${param.err}">
+                                let id = /*[[${modalId}]]*/ 0;
+                                $("#exampleModalCenter" + id).modal("show");
+                              </script>
+                            <div class="form-group" >
                               <label for="exampleInputEmail1">Sport Name</label>
-                              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Sport Name" name="name"> 
+                              <input type="text" pattern="^[a-zA-Z]+" oninvalid="setCustomValidity('Please enter on alphabets only. ')" class="form-control required" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Sport Name" name="name" required> 
                             </div>
                             <div class="form-group">
                                 <label for="item">Item</label>
-                                <input type="text" class="form-control" id="item" aria-describedby="emailHelp" placeholder="Enter Item Name" name="item"> 
-                              </div>
-                              <div class="form-group">
+                                <input type="text" pattern="^[a-zA-Z]+" oninvalid="setCustomValidity('Please enter on alphabets only. ')" class="form-control required" id="item" aria-describedby="emailHelp" placeholder="Enter Item Name" name="item" required> 
+                            </div>
+                              <!-- <div class="form-group " th:classappend="${#fields.hasErrors('regStaffNo')}? 'has-error':''">
+                                <label for="regStaffNo" class="control-label">Reg. No.  </label> <input id="regStaffNo "class="form-control" th:field="*{regStaffNo}" />
+                                <p class="alert-danger" th:each="error : ${#fields.errors('regStaffNo')}" th:text="${error}">Validation error</p>
+                            </div> -->
+                              <div class="form-group" >
                                 <label for="total">Total Number of Items</label>
-                                <input type="number" class="form-control" id="total" aria-describedby="emailHelp" placeholder="Enter Number of Items" name="total"> 
-                              </div>
-                              <div class="form-group">
+                                <input type="number" class="form-control required" id="total" aria-describedby="emailHelp" placeholder="Enter Number of Items" name="total" required> 
+                            </div>
+                              <div class="form-group" >
                                 <label for="file">Image</label>
-                                <input type="file" class="form-control" id="file" aria-describedby="emailHelp" placeholder="Select File" name="file"> 
-                              </div>
+                                <input type="file" class="form-control required" id="file" aria-describedby="emailHelp" placeholder="Select File" name="file" accept="image/*" required> 
+                            </div>
                          
                     
                    

@@ -4,9 +4,16 @@ package com.mj.skems.Security;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.System.Logger;
+import java.net.MalformedURLException;
 import java.net.http.HttpClient.Redirect;
+import java.nio.FloatBuffer;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
@@ -17,11 +24,25 @@ import java.util.stream.Collectors;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
 
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.hibernate.validator.internal.util.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.web.ServerProperties.Tomcat.Resource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,12 +51,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import org.thymeleaf.util.StringUtils;
 
@@ -46,12 +69,14 @@ import com.mj.skems.Inventory.ImgUtil;
 import com.mj.skems.Inventory.InventoryModel;
 import com.mj.skems.Inventory.InventoryRepository;
 import com.mj.skems.Inventory.InventoryService;
+import com.mj.skems.Security.model.StaffDto;
 import com.mj.skems.Security.model.User;
 import com.mj.skems.inventoryRecords.InventoryRecords;
 import com.mj.skems.inventoryRecords.InventoryRecordsService;
 import com.mj.skems.mail.SendMail;
 
 @Controller
+@Validated
 public class MainController {
     @Autowired
     InventoryRecordsService inventoryService;
@@ -346,10 +371,11 @@ public class MainController {
                 return "index2";
                } 
                 @PostMapping("/item")
-                public String saveItem( @RequestParam("name")String name,
+                public String saveItem(@ModelAttribute("inventoryModel") InventoryModel inventoryModel, @Valid @RequestParam("name")String name,
                 @RequestParam("item")String item, @RequestParam("total")Integer total, @RequestParam("file")MultipartFile file ) {
                      
                      inventory_sService.saveNewItem(name, item, total, file);
+                    
                     return   "redirect:items";
                           }
                 
@@ -381,7 +407,19 @@ public class MainController {
                 }
                 return"booked";
             }
-
+            @GetMapping("/searchRecords")
+            public String listRecords(@Param("regNo")String regNo ,Model model){
+              
+                if (regNo != null){
+                
+                model.addAttribute("inventoryRecords", inventoryService.findRecordsByRegNoEquals(regNo));
+                }
+                else {
+                List<InventoryRecords> list = inventoryService.listIssuedRecords();
+                model.addAttribute("inventoryRecords",inventoryService.listRecords());
+                }
+                return"redirect:records";
+            }
 
           
     @GetMapping("/studentIssued")
@@ -389,7 +427,15 @@ public class MainController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
 
-        model.addAttribute("inventoryRecords",inventoryService.findByRegNoEquals(user.getRegStaffNo()) );
+        model.addAttribute("inventoryRecords",inventoryService.findByRegNoEquals(user.getRegStaffNo()));
+        return"studentAccount";
+    }
+    @GetMapping("/studentBooked")
+    public String listBookedStudentRecords(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
+
+        model.addAttribute("inventoryRecords",inventoryService.findByRegNoEquals(user.getRegStaffNo()));
         return"studentAccount";
     }
   
@@ -421,6 +467,39 @@ public class MainController {
                 }
                 return"accountAdmin";
             }
+ 
+            @GetMapping("/downloadStaffManual")
+public ResponseEntity downloadFileFromLocal() {
+    String fileBasePath = "C:\\Users\\Joy Mary\\Downloads\\skems\\src\\main\\resources\\static\\video\\staffManual.pdf";
+	Path path = Paths.get(fileBasePath );
+	UrlResource resource = null;
+	try {
+		resource = new UrlResource(path.toUri());
+	} catch (MalformedURLException e) {
+		e.printStackTrace();
+	}
+	return ResponseEntity.ok()
+			.contentType(MediaType.parseMediaType("application/octet-stream"))
+			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\\manual")
+			.body(resource);
+}
+
+ @GetMapping("/downloadStudentManual")
+public ResponseEntity downloadOtherFileFromLocal() {
+    String fileBasePath = "C:\\Users\\Joy Mary\\Downloads\\skems\\src\\main\\resources\\static\\video\\studentManual.pdf";
+	Path path = Paths.get(fileBasePath );
+	UrlResource resource = null;
+	try {
+		resource = new UrlResource(path.toUri());
+	} catch (MalformedURLException e) {
+		e.printStackTrace();
+	}
+	return ResponseEntity.ok()
+			.contentType(MediaType.parseMediaType("application/octet-stream"))
+			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\\manual_stu")
+			.body(resource);
+}
+
 
 }
   

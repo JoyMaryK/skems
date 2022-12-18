@@ -43,7 +43,9 @@
                     <a class="nav-link nav-link-4" th:href="@{/items}">Items</a>
                 </li>
                 
-                
+                <li class="nav-item">
+                    <a class="nav-link nav-link-4" th:href="@{/staffHelp}">Help</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-3" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
                 </li>
@@ -121,7 +123,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="item">Password</label>
-                                                    <input type="password" class="form-control" id="item" aria-describedby="emailHelp" placeholder="Enter your password" name="pwd"> 
+                                                    <input type="password" class="form-control required" id="item" aria-describedby="emailHelp" placeholder="Enter your password" name="pwd" required> 
                                                   </div>
                                                                                     
                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.mj.skems.Security.model.User;
 import com.mj.skems.Security.model.Role;
+import com.mj.skems.Security.model.StaffDto;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -48,10 +49,11 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
         user.setPhoneNo(registration.getPhoneNo());
         user.setRegStaffNo(registration.getRegStaffNo());
-        user.setRoles(Arrays.asList(new Role(registration.getRole())));
+        user.setRoles(Arrays.asList(new Role("STUDENT")));
         
         return userRepository.save(user);
     }
+    
 
     // @Override
     // public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -98,6 +100,22 @@ public class UserServiceImpl implements UserService {
     public List<User> listByEmail(String email) {
         // TODO Auto-generated method stub
         return (List<User>) userRepository.findUserByEmail(email);
+    }
+
+
+    @Override
+    public User saveStaff(StaffDto registration) {
+        // TODO Auto-generated method stub
+        User user = new User();
+        user.setFirstName(registration.getFirstName());
+        user.setLastName(registration.getLastName());
+        user.setEmail(registration.getEmail());
+        user.setPassword(passwordEncoder.encode(registration.getPassword()));
+        user.setPhoneNo(registration.getPhoneNo());
+        user.setRegStaffNo(registration.getRegStaffNo());
+        user.setRoles(Arrays.asList(new Role("STAFF")));
+        
+        return userRepository.save(user);
     }
 
 

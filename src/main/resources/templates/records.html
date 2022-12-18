@@ -31,11 +31,9 @@
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                 
                 <li class="nav-item">
-                    <a class="nav-link nav-link-3 "  th:href="@{/booked}">Booked</a>
+                    <a class="nav-link nav-link-2" th:href="@{/adminUsers}">Users</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-3 "  th:href="@{/issued}">Issued</a>
-                </li>
+                
                 <li class="nav-item">
                     <a class="nav-link nav-link-3 active" aria-current="page" th:href="@{/records}">Records</a>
                 </li>
@@ -60,14 +58,12 @@
                     <div class="row">
                 
                        <!-- <div class="col-md-8"> -->
-                           
-                           <div class="input-group mb-3"> 
-                  <input type="text" class="form-control input-text text-success " placeholder="Search by Reg. No." aria-label="Recipient's username" aria-describedby="basic-addon2">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-success btn-lg" type="button"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
-                           
+                        <form class="input-group mb-3" method="get"  th:action="@{/searchRecords}" th:object="${inventoryRecords}">
+                            <input type="text" class="form-control" placeholder="Search by Reg. No." aria-label="Recipient's username" aria-describedby="basic-addon2" name="regNo">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-success btn-lg" type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
                        <!-- </div>         -->
                         
                     </div>

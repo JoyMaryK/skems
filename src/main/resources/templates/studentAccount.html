@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
+    <title>Account</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="fontawesome/css/all.min.css">
     <link rel="stylesheet" href="css/templatemo-style.css">
@@ -31,13 +31,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link nav-link-3 active" aria-current="page" th:href="@{/}">Home</a>
+                    <a class="nav-link nav-link-3 " th:href="@{/index}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-2" th:href="@{/about}">About</a>
+                    <a class="nav-link nav-link-2 active" aria-current="page"  th:href="@{/studentAccount}">Account</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-1" th:href="@{/contact}">Contact</a>
+                    <a class="nav-link nav-link-1" th:href="@{/studentHelp}">Help</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-4" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
@@ -51,11 +51,12 @@
     <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpeg" style="margin-top:20px ; ">
         
     </div>
-
+    
     <div class="container">
         <div class="row">
             <div class="col-lg-10 mt-5 mb-5">
 <table class="table table-sm table-bordered table-striped" style="width: 70% ; float: center;">
+    
 <h3>Items you have been issued</h3>
     <thead>
         <tr>
@@ -71,10 +72,46 @@
           </tr>
     </thead>
     <tbody>
-        <div th:if="${param.error}">
-            <div class="alert alert-danger">Invalid username or password.
+        
+        <tr th:each="inventoryRecord: ${inventoryRecords}">
+            <form action="#" th:action="@{/studentBooked}" th:object="${inventoryRecords}" method="get">
+            
+           
+            
+            <td th:text="${inventoryRecord.item}"></td>
+            <td th:text="${inventoryRecord.staffIssued}"></td>
+            <td th:text="${inventoryRecord.dateIssued}"></td>  
+            
+            
+
+            </form>
+        </tr>
+</table>
             </div>
         </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mt-5 mb-5">
+<table class="table table-sm table-bordered table-striped" style="width: 70% ; float: center;">
+    
+<h3>Items you have been issued</h3>
+    <thead>
+        <tr>
+            
+           
+           
+            <th class="text-success">Item</th>
+            <th class="text-success">Issued By</th>
+            <th class="text-success">Date Issued</th>
+           
+         
+            
+          </tr>
+    </thead>
+    <tbody>
+        
         <tr th:each="inventoryRecord: ${inventoryRecords}">
             <form action="#" th:action="@{/studentIssued}" th:object="${inventoryRecords}" method="get">
             

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mj.skems.Security.model.StaffDto;
 import com.mj.skems.Security.model.User;
 
 @Controller
@@ -46,5 +47,28 @@ public class UserRegistrationController {
         userService.save(userDto);
         // return "redirect:/registration?success";
         return "redirect:/";
+    }
+
+    @PostMapping("/registerStaff")
+    public String registerStaffUserAccount(@ModelAttribute("user") @Valid StaffDto userDto,
+        BindingResult result ) {
+
+        User existing = userService.findUserByEmail(userDto.getEmail());      //
+        if (existing != null) {
+            result.rejectValue("email", null, "There is already an account registered with that email");
+        }
+
+        if (result.hasErrors()) {
+            return "registration";
+        }
+
+        userService.saveStaff(userDto);
+        // return "redirect:/registration?success";
+        return "redirect:/";
+    }
+    @GetMapping("/registerStaff")
+    public String staffReg(Model model){
+        
+        return"staffRegistration";
     }
 }

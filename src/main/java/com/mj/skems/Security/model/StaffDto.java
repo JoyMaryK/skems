@@ -1,22 +1,11 @@
-package com.mj.skems.Security;
+package com.mj.skems.Security.model;
+
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 
-
-
-// @FieldMatch.List({
-//     @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
-   
-// })
-public class UserRegistrationDto {
-
-    
-
+public class StaffDto {
     @NotEmpty
     @NotBlank
     @Pattern(regexp="[A-Za-z][a-zA-Z]*",message="must be all characters")
@@ -56,7 +45,7 @@ public class UserRegistrationDto {
     private String phoneNo;
 
     @NotEmpty
-    @Pattern(regexp = "^[A-Z]P?[0-9][0-9]\\/\\d{5}\\/[1|2][0-9]$",message = "use a valid regNo")
+    //@Pattern(regexp = "^[A-Z]P?[0-9][0-9]\\/\\d{5}\\/[1|2][0-9]$",message = "use a valid regNo")
     private String regStaffNo;
 
     public String getFirstName() {

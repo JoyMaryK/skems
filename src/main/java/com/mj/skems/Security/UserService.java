@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import com.mj.skems.Security.model.StaffDto;
 import com.mj.skems.Security.model.User;
 
 
@@ -15,7 +16,7 @@ public interface UserService extends UserDetailsService {
 
     
     User save(UserRegistrationDto registration);
-
+    User saveStaff(StaffDto registration);
     User findUserByEmail(String email);
 
     List<User> listAll();
