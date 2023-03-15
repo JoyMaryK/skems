@@ -62,4 +62,5 @@ public class InventoryModel {
     @Column(nullable = true, length = 64)
     private String photos;
 
+    private Integer bad;
 }

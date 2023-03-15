@@ -54,19 +54,20 @@
     
     <div class="container">
         <div class="row">
-            <div class="col-lg-10 mt-5 mb-5">
+            <div class="col-lg-15 mt-5 mb-5">
 <table class="table table-sm table-bordered table-striped" style="width: 70% ; float: center;">
     
-<h3>Items you have been issued</h3>
+<h3>Your Recent History</h3>
     <thead>
         <tr>
             
            
            
             <th class="text-success">Item</th>
+            <th class="text-success">Date Booked</th>
             <th class="text-success">Issued By</th>
             <th class="text-success">Date Issued</th>
-           
+            <th class="text-success">Date Returned</th>
          
             
           </tr>
@@ -79,9 +80,10 @@
            
             
             <td th:text="${inventoryRecord.item}"></td>
+            <td th:text="${inventoryRecord.dateBooked}"></td>
             <td th:text="${inventoryRecord.staffIssued}"></td>
             <td th:text="${inventoryRecord.dateIssued}"></td>  
-            
+            <td th:text="${inventoryRecord.dateReturned}"></td>  
             
 
             </form>
@@ -91,44 +93,7 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 mt-5 mb-5">
-<table class="table table-sm table-bordered table-striped" style="width: 70% ; float: center;">
     
-<h3>Items you have been issued</h3>
-    <thead>
-        <tr>
-            
-           
-           
-            <th class="text-success">Item</th>
-            <th class="text-success">Issued By</th>
-            <th class="text-success">Date Issued</th>
-           
-         
-            
-          </tr>
-    </thead>
-    <tbody>
-        
-        <tr th:each="inventoryRecord: ${inventoryRecords}">
-            <form action="#" th:action="@{/studentIssued}" th:object="${inventoryRecords}" method="get">
-            
-           
-            
-            <td th:text="${inventoryRecord.item}"></td>
-            <td th:text="${inventoryRecord.staffIssued}"></td>
-            <td th:text="${inventoryRecord.dateIssued}"></td>  
-            
-            
-
-            </form>
-        </tr>
-</table>
-            </div>
-        </div>
-    </div>
     
                
 

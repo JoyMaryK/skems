@@ -55,7 +55,7 @@ public class InventoryService {
                   
                     iModel.setAvailable(total  - issuedNo - iModel.getBookedNo()  ) ;
                     iModel.setTotalNo(total) ;
-                     
+                     //iModel.setBad(inventoryRecordsRepository.noOfBad(item));
                     
                     
                 

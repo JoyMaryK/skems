@@ -64,7 +64,62 @@
         <div class="row">
             <div class="col-lg-10 mt-5 mb-5">
                 <table class="table table-sm table-bordered table-striped" style="width: 100%">
-                    <h3 class="text-success">List of User Accounts</h3><br>
+                    <h3 class="text-success">List of User Accounts<a class="btn btn-success btn-sm" style="float: right;"
+                        aria-current="page"  data-toggle="modal" data-target="#exampleModalCenter" >
+                            ADD NEW   <i class="fas fa-plus"></i></a>
+                       </h3>
+                       <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                       
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalCenterTitle">Item Details</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            
+                            <div class="modal-body">
+                               
+                                <form th:action="@{/registration/registerStaff}" th:object="${user}" method="post" >
+                                    <script th:inline="javascript" th:if="${param.err}">
+                                        let id = /*[[${modalId}]]*/ 0;
+                                        $("#exampleModalCenter" + id).modal("show");
+                                      </script>
+                                    <div class="form-group" >
+                                      <label for="exampleInputEmail1">First Name</label>
+                                      <input type="text" pattern="^[a-zA-Z]+" oninvalid="setCustomValidity('Please enter on alphabets only. ')" class="form-control required" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter First Name" th:name="${firstName}" required> 
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="item">Last Name</label>
+                                        <input type="text" pattern="^[a-zA-Z]+" oninvalid="setCustomValidity('Please enter on alphabets only. ')" class="form-control required" id="item" aria-describedby="emailHelp" placeholder="Enter Last Name" th:name="${lastName}" required> 
+                                    </div>
+                                     
+                                    <div class="form-group" >
+                                        <label for="total">Staff No.</label>
+                                        <input type="text" class="form-control required" id="total" aria-describedby="emailHelp" placeholder="Enter Staff Number" th:name="${regStaffNo}" required> 
+                                    </div>
+                                      <div class="form-group" >
+                                        <label for="total">Email</label>
+                                        <input type="email" class="form-control required" id="total" aria-describedby="emailHelp" placeholder="Enter Email" th:name="${emai}" required> 
+                                    </div>
+                                      <div class="form-group" >
+                                        <label for="file">Phone</label>
+                                        <input type="phone" class="form-control required" id="file" aria-describedby="emailHelp" placeholder="Enter PhoneFile" th:name="${phoneNo}" required> 
+                                    </div>
+                                    <div class="form-group" >
+                                        <label for="file">Password</label>
+                                        <input type="password" class="form-control required" id="file" aria-describedby="emailHelp" placeholder="Password" th:name="${password}" required> 
+                                    </div>
+                            
+                           
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-success">Save</button>
+                            </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div></h3><br>
                     <div class="input-group mb-3"> 
                                  
                         <form class="input-group mb-3" method="get"  th:action="@{/searchUsers}" th:object="${users}">
@@ -74,7 +129,7 @@
                             </div>
                         </form>
                         </div>
-<h6>Click the Remove button to delete the user</h6>
+
                     <thead>
                         <tr>
                             <th class="text-success">First Name</th>
@@ -88,14 +143,14 @@
                     </thead>
                     <tbody>
                         <tr th:each="user: ${users}">
-                            <form action="#" th:action="@{/deleteUser}" th:object="${users}" method="post">
+                            <form action="#" th:action="@{/deleteUserr}" th:object="${users}" method="delete">
                             <td th:text="${user.firstName}"></td>
                             <td th:text="${user.lastName}"></td>
                             <td th:text="${user.regStaffNo}"></td>
                             <td th:text="${user.email}"></td>
                             
-                            <td><input type="hidden" th:value="${user.email}" name="email"></td>                         
-                            <td><button type="submit">REMOVE</button></td>
+                            <td><input type="hidden" th:value="${user.id}" name="id"></td>                         
+                          
                                       
                         
                         </tr>

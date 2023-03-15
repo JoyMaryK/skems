@@ -52,7 +52,7 @@ public class InventoryRecords {
     private Long ItemId;
     private String email;
     
-    
+    private Integer bad;
     private String pwd;
 
 }

@@ -34,7 +34,7 @@
                 <div th:if="${param.success}" >
                     <div class="alert alert-info">You've successfully registered!</div>
                 </div>
-
+<div >
                 <h1>Sign Up</h1>
                 <form th:action="@{/registration}" th:object="${user}" method="post" >
 
@@ -65,7 +65,7 @@
                         <label for="phoneNo" class="control-label">Phone Number {07xxxxxxxx or 01xxxxxxxx}</label> <input id="phoneNo" class="form-control" th:field="*{phoneNo}  " />
                         <p class="alert-danger" th:each="error : ${#fields.errors('phoneNo')}" th:text="${error}">Validation error</p>
                     </div>
-                    <div class="form-row">
+                    
                    
                     <!-- <div class="form-group col-md-6" th:classappend="${#fields.hasErrors('regStaffNo')}? 'has-error':''">
                         <label for="role" class="control-label">Role</label>
@@ -81,8 +81,8 @@
                         <label for="regStaffNo" class="control-label">Reg. No.  </label> <input id="regStaffNo "class="form-control" th:field="*{regStaffNo}" />
                         <p class="alert-danger" th:each="error : ${#fields.errors('regStaffNo')}" th:text="${error}">Validation error</p>
                     </div>
-                    </div>
-                    <div class="form-row" >
+                    
+                    
                     <div class="form-group " th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
                         <label for="password" class="control-label">Password</label> <input id="password" class="form-control" type="password" th:field="*{password}" />
                         <p class="alert-danger" th:each="error : ${#fields.errors('password')}" th:text="${error}">Validation error</p>
@@ -92,7 +92,7 @@
        password</label> <input id="confirmPassword" class="form-control" type="password" th:field="*{confirmPassword}" />
                         <p class="alert-danger" th:each="error : ${#fields.errors('confirmPassword')}" th:text="${error}">Validation error</p>
                     </div> -->
-                </div>
+                
 
                     <!-- <div class="form-group" th:classappend="${#fields.hasErrors('terms')}? 'has-error':''">
                         <input id="terms" type="checkbox" th:field="*{terms}" /> <label class="control-label" for="terms"> I agree with the <a
@@ -107,9 +107,8 @@
                         
                         <span>Already have an account? <a  th:href="@{/login}">Login
         here</a></span> <br>
-        <span>Staff Member? <a  th:href="@{/registration/registerStaff}">Register
-            here</a></span>
-        
+       
+   </div>     
                     </div>
 
                 </form>

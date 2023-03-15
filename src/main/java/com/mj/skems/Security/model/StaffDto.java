@@ -6,19 +6,13 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 public class StaffDto {
-    @NotEmpty
-    @NotBlank
-    @Pattern(regexp="[A-Za-z][a-zA-Z]*",message="must be all characters")
+    
     private String firstName;
 
-    @NotEmpty
-    @NotBlank
-    @Pattern(regexp="[A-Za-z][a-zA-Z]*",message="must be all characters")
+    
     private String lastName;
 
-    @NotEmpty
-    @NotBlank
-    @Pattern(regexp="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$",message="must be 8- 20 characters long \t   must have an UPPERCASE, lowercase and special character")  
+   
     private String password;
 
     // @NotEmpty
@@ -26,8 +20,7 @@ public class StaffDto {
     // @Pattern(regexp="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" ,message="must be 8- 20 characters long  \t must have an UPPERCASE, lowercase and special character")  
     private String confirmPassword;
 
-    @Email
-    @NotEmpty
+    
     private String email;
 
     @Email
@@ -40,12 +33,10 @@ public class StaffDto {
    // @NotEmpty
     private String role;
 
-    @NotBlank
-    @Pattern(regexp="^[0][1|7]\\d{8}$" ,message="must start with 07/01 and be 10 digits")  
+    
     private String phoneNo;
 
-    @NotEmpty
-    //@Pattern(regexp = "^[A-Z]P?[0-9][0-9]\\/\\d{5}\\/[1|2][0-9]$",message = "use a valid regNo")
+   
     private String regStaffNo;
 
     public String getFirstName() {

@@ -52,6 +52,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -321,6 +322,22 @@ public class MainController {
 		
     List<String> sportNameList= inventory_sService.listSportItemsForGraph().stream().map(x->x.getSportItem()).collect(Collectors.toList());
     List<Integer> sportIssuedList= inventory_sService.listSportItemsForGraph().stream().map(x->x.getIssuedNo()).collect(Collectors.toList());
+    List<String> sportName= inventory_sService.listSportItemsForGraph().stream().map(x->x.getSportItem()).collect(Collectors.toList());
+    List<Integer> sportIssuedList2= inventory_sService.listSportItemsForGraph().stream().map(x->x.getBad()).collect(Collectors.toList());
+
+	model.addAttribute("name", sportNameList);
+    model.addAttribute("name2", sportName);
+	model.addAttribute("age", sportIssuedList);
+    model.addAttribute("age2", sportIssuedList2);
+	return "barChart";
+	
+	}
+    @GetMapping("/barChart2")
+	public String getRecordGraph2(Model model) {	
+		
+    List<String> sportNameList= inventory_sService.listSportItemsForGraph().stream().map(x->x.getSportItem()).collect(Collectors.toList());
+    List<Integer> sportIssuedList= inventory_sService.listSportItemsForGraph().stream().map(x->x.getBad()).collect(Collectors.toList());
+    
     
 	model.addAttribute("name", sportNameList);
 	model.addAttribute("age", sportIssuedList);
@@ -412,7 +429,7 @@ public class MainController {
               
                 if (regNo != null){
                 
-                model.addAttribute("inventoryRecords", inventoryService.findRecordsByRegNoEquals(regNo));
+                model.addAttribute("inventoryRecords", inventoryService.findByRegNoEquals(regNo));
                 }
                 else {
                 List<InventoryRecords> list = inventoryService.listIssuedRecords();
@@ -500,7 +517,22 @@ public ResponseEntity downloadOtherFileFromLocal() {
 			.body(resource);
 }
 
+@DeleteMapping("/deleteUserr")          
+public void deleteUser(@Param("id")Long id){
+    // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+    // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    // ShopMeUserDetails user =  (ShopMeUserDetails) service.loadUserByUsername(auth.getName());
 
+        
+       
+
+                userRepository.deleteParentyId(id);
+                userRepository.deleteById(id);
+            
+              
+            }
+
+           
 }
   
         
