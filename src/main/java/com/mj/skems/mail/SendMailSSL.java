@@ -10,7 +10,7 @@ public class SendMailSSL{
             + "Thank you,<br>"
             + "Your company name.";
         //from,password,to,subject,message  
-        SendMail.send("joyskems@gmail.com","xeo cjac blqd ewqlt","joyskems@gmail.com","hello javatpoint",content);  
+        SendMail.send("joyskems@gmail.com","bwal xvbe qvip xoga","joyskems@gmail.com","hello javatpoint",content);
         //change from, password and to  
     }    
    }   
